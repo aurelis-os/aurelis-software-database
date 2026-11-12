@@ -25,17 +25,17 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y flatpak
 
-      - name: Add flathub remote
+      - name: Add flathub remote (user-level)
         run: |
-          flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+          flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
-      - name: Update appstream
+      - name: Update appstream (user-level)
         run: |
-          flatpak update --appstream
+          flatpak update --appstream --user
 
-      - name: Convert flatpak XML to JSON
+      - name: Convert flatpak XML to JSON (user-level paths)
         run: |
-          python3 src/flatpak_xml_to_json.py --xml /var/lib/flatpak/appstream/flathub/x86_64/active/appstream.xml.gz --icons /var/lib/flatpak/appstream/flathub/x86_64/active/icons/128x128 --out "data/all"
+          python3 src/flatpak_xml_to_json.py --xml "$HOME/.local/share/flatpak/appstream/flathub/x86_64/active/appstream.xml.gz" --icons "$HOME/.local/share/flatpak/appstream/flathub/x86_64/active/icons/128x128" --out "data/all"
 
       - name: Sync flatpak apps
         run: |
