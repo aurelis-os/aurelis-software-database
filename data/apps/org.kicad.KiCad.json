@@ -203,8 +203,8 @@
     "contribute": "https://go.kicad.org/contribute"
   },
   "icon": {
-    "type": "remote",
-    "name": "https://dl.flathub.org/media/org/kicad/KiCad/883d4a1950a8a021fd2deae742a1daa2/icons/128x128@2/org.kicad.KiCad.png"
+    "type": "cached",
+    "name": "org.kicad.KiCad.png"
   },
   "screenshots": [
     {

@@ -24,8 +24,8 @@
     "donation": "https://www.kde.org/community/donations/?app=knights&source=appdata"
   },
   "icon": {
-    "type": "remote",
-    "name": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/icons/128x128@2/org.kde.knights.png"
+    "type": "cached",
+    "name": "org.kde.knights.png"
   },
   "screenshots": [
     {

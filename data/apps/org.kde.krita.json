@@ -27,8 +27,8 @@
     "contribute": "https://docs.krita.org/en/contributors_manual.html"
   },
   "icon": {
-    "type": "remote",
-    "name": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/icons/128x128@2/org.kde.krita.png"
+    "type": "cached",
+    "name": "org.kde.krita.png"
   },
   "screenshots": [
     {

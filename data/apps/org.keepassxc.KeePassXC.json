@@ -42,8 +42,8 @@
     "contribute": "https://keepassxc.org/docs/#contribute"
   },
   "icon": {
-    "type": "remote",
-    "name": "https://dl.flathub.org/media/org/keepassxc/KeePassXC.desktop/8703bd4e659abcb1dac1d6646881bb00/icons/128x128@2/org.keepassxc.KeePassXC.desktop.png"
+    "type": "cached",
+    "name": "org.keepassxc.KeePassXC.png"
   },
   "screenshots": [
     {

@@ -57,7 +57,11 @@ def main():
         if args.dry_run:
             continue
 
+        # Preserve top-level icon field (not in flathub block)
+        icon = mine.get("icon")
         mine["flathub"] = fresh
+        if icon is not None:
+            mine["icon"] = icon
         mine_path.write_text(
             json.dumps(mine, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
         )

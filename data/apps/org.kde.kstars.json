@@ -24,8 +24,8 @@
     "help": "https://kstars-docs.kde.org/"
   },
   "icon": {
-    "type": "remote",
-    "name": "https://dl.flathub.org/media/org/kde/kstars.desktop/bae307dd6ac01b3a196c42166306e3a8/icons/128x128@2/org.kde.kstars.desktop.png"
+    "type": "cached",
+    "name": "org.kde.kstars.png"
   },
   "screenshots": [
     {

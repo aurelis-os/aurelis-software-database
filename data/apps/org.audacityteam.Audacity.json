@@ -42,8 +42,8 @@
     "translate": "https://support.audacityteam.org/community/contributing/translating"
   },
   "icon": {
-    "type": "remote",
-    "name": "https://dl.flathub.org/media/org/audacityteam/Audacity/0ad4a24524b6c06220649dc83a08ae81/icons/128x128@2/org.audacityteam.Audacity.png"
+    "type": "cached",
+    "name": "org.audacityteam.Audacity.png"
   },
   "screenshots": [
     {
