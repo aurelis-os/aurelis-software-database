@@ -4,7 +4,6 @@ Check if app icons exist in data/icons directory.
 """
 
 import json
-import os
 import sys
 from pathlib import Path
 
