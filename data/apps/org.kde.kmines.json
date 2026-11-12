@@ -1,0 +1,62 @@
+{
+  "id": "org.kde.kmines",
+  "name": "KMines",
+  "repo": "pkgforge-dev/KMines-AppImage",
+  "asset_suffix": "-anylinux-x86_64.AppImage",
+  "version_regex": "([0-9.]+-[0-9]+)@",
+  "version": "26.08.2-1",
+  "download_url": "https://github.com/pkgforge-dev/KMines-AppImage/releases/download/26.08.2-1%402026-11-01_1793557981/KMines-26.08.2-1-anylinux-x86_64.AppImage",
+  "asset_name": "KMines-26.08.2-1-anylinux-x86_64.AppImage",
+  "published_at": "2026-11-01T18:33:02Z",
+  "summary": "Minesweeper-like Game",
+  "description": "KMines is a classic Minesweeper game. The idea is to uncover all the squares without blowing\n      up any mines. When a mine is blown up, the game is over.",
+  "developer": null,
+  "license": "GPL-2.0+",
+  "categories": [
+    "Game",
+    "StrategyGame"
+  ],
+  "keywords": [],
+  "urls": {
+    "homepage": "https://apps.kde.org/kmines",
+    "bugtracker": "https://bugs.kde.org",
+    "help": "https://docs.kde.org/?application=kmines",
+    "donation": "https://www.kde.org/community/donations/?app=kmines&source=appdata"
+  },
+  "icon": {
+    "type": "cached",
+    "name": "org.kde.kmines.png"
+  },
+  "screenshots": [
+    {
+      "default": true,
+      "caption": null,
+      "images": [
+        {
+          "type": "source",
+          "width": "979",
+          "height": "753",
+          "url": "https://dl.flathub.org/media/org/kde/kmines/00b394b8f3cb450cbf837ccb6a94c5e7/screenshots/image-1_orig.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "752",
+          "height": "578",
+          "url": "https://dl.flathub.org/media/org/kde/kmines/00b394b8f3cb450cbf837ccb6a94c5e7/screenshots/image-1_752x578@1.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "624",
+          "height": "479",
+          "url": "https://dl.flathub.org/media/org/kde/kmines/00b394b8f3cb450cbf837ccb6a94c5e7/screenshots/image-1_624x479@1.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "224",
+          "height": "172",
+          "url": "https://dl.flathub.org/media/org/kde/kmines/00b394b8f3cb450cbf837ccb6a94c5e7/screenshots/image-1_224x172@1.png"
+        }
+      ]
+    }
+  ]
+}

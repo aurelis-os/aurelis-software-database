@@ -1,0 +1,120 @@
+{
+  "id": "com.google.Chrome",
+  "name": "Google Chrome",
+  "repo": "pkgforge-dev/Chrome-AppImage",
+  "asset_suffix": "-anylinux-x86_64.AppImage",
+  "version_regex": "([0-9.]+)@",
+  "version": "156.0.8078.79",
+  "download_url": "https://github.com/pkgforge-dev/Chrome-AppImage/releases/download/156.0.8078.79%402026-11-01_1793557534/Google_Chrome-156.0.8078.79-anylinux-x86_64.AppImage",
+  "asset_name": "Google_Chrome-156.0.8078.79-anylinux-x86_64.AppImage",
+  "published_at": "2026-11-01T18:25:35Z",
+  "summary": "The browser built to be yours",
+  "description": "Google Chrome is a browser that combines a minimal design with sophisticated technology to make\n      the web faster, safer, and easier.",
+  "developer": null,
+  "license": "LicenseRef-proprietary",
+  "categories": [
+    "Network",
+    "WebBrowser"
+  ],
+  "keywords": [],
+  "urls": {
+    "homepage": "https://chrome.google.com/",
+    "bugtracker": "https://github.com/flathub/com.google.Chrome/issues"
+  },
+  "icon": {
+    "type": "cached",
+    "name": "com.google.Chrome.png"
+  },
+  "screenshots": [
+    {
+      "default": true,
+      "caption": null,
+      "images": [
+        {
+          "type": "source",
+          "width": "1029",
+          "height": "600",
+          "url": "https://dl.flathub.org/media/com/google/Chrome/301fce8bee9cb30f5634ddb7467a501d/screenshots/image-1_orig.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "752",
+          "height": "438",
+          "url": "https://dl.flathub.org/media/com/google/Chrome/301fce8bee9cb30f5634ddb7467a501d/screenshots/image-1_752x438@1.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "624",
+          "height": "363",
+          "url": "https://dl.flathub.org/media/com/google/Chrome/301fce8bee9cb30f5634ddb7467a501d/screenshots/image-1_624x363@1.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "224",
+          "height": "130",
+          "url": "https://dl.flathub.org/media/com/google/Chrome/301fce8bee9cb30f5634ddb7467a501d/screenshots/image-1_224x130@1.png"
+        }
+      ]
+    },
+    {
+      "default": false,
+      "caption": null,
+      "images": [
+        {
+          "type": "source",
+          "width": "1029",
+          "height": "600",
+          "url": "https://dl.flathub.org/media/com/google/Chrome/301fce8bee9cb30f5634ddb7467a501d/screenshots/image-2_orig.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "752",
+          "height": "438",
+          "url": "https://dl.flathub.org/media/com/google/Chrome/301fce8bee9cb30f5634ddb7467a501d/screenshots/image-2_752x438@1.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "624",
+          "height": "363",
+          "url": "https://dl.flathub.org/media/com/google/Chrome/301fce8bee9cb30f5634ddb7467a501d/screenshots/image-2_624x363@1.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "224",
+          "height": "130",
+          "url": "https://dl.flathub.org/media/com/google/Chrome/301fce8bee9cb30f5634ddb7467a501d/screenshots/image-2_224x130@1.png"
+        }
+      ]
+    },
+    {
+      "default": false,
+      "caption": null,
+      "images": [
+        {
+          "type": "source",
+          "width": "1029",
+          "height": "600",
+          "url": "https://dl.flathub.org/media/com/google/Chrome/301fce8bee9cb30f5634ddb7467a501d/screenshots/image-3_orig.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "752",
+          "height": "438",
+          "url": "https://dl.flathub.org/media/com/google/Chrome/301fce8bee9cb30f5634ddb7467a501d/screenshots/image-3_752x438@1.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "624",
+          "height": "363",
+          "url": "https://dl.flathub.org/media/com/google/Chrome/301fce8bee9cb30f5634ddb7467a501d/screenshots/image-3_624x363@1.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "224",
+          "height": "130",
+          "url": "https://dl.flathub.org/media/com/google/Chrome/301fce8bee9cb30f5634ddb7467a501d/screenshots/image-3_224x130@1.png"
+        }
+      ]
+    }
+  ]
+}

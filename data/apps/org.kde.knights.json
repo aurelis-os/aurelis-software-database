@@ -1,0 +1,260 @@
+{
+  "id": "org.kde.knights",
+  "name": "KNights",
+  "repo": "pkgforge-dev/Knights-AppImage",
+  "asset_suffix": "-anylinux-x86_64.AppImage",
+  "version_regex": "([0-9.]+-[0-9]+)@",
+  "version": "26.08.2-1",
+  "download_url": "https://github.com/pkgforge-dev/Knights-AppImage/releases/download/26.08.2-1%402026-11-01_1793557813/Knights-26.08.2-1-anylinux-x86_64.AppImage",
+  "asset_name": "Knights-26.08.2-1-anylinux-x86_64.AppImage",
+  "published_at": "2026-11-01T18:30:15Z",
+  "summary": "Chess game",
+  "description": "KNights is a chess game. As a player, your goal is to defeat your opponent by checkmating their king.\nFeatures:\nLocal play between two players on the same computer\nPlay against any computer program that supports the XBoard protocol\nPlay on the Free Internet Chess Server (FICS)\nWatching two computer engines play against each other\nSupport for legal move checking\nMarkers for possible moves, opponent’s last move and sources of check\nBoard borders and site notations\nComplete time control, with Plasma-styled clocks\nSeveral themes, with the possibility of downloading new ones from within the program\nAnimated moves (configurable)\nViews for playing on a chess server, including a seek graph, text console, and chat widget\nOption to undo and redo moves\nGraphic interface for making and receiving offers from remote players\nSupport for the UCI protocol (used by Stockfish, Chessbase, and many others)\nSupport for saving and loading Portable game notation (PGN) files\nSpeak opponent’s moves\nAbility to control the program via a D-Bus interface",
+  "developer": "KDE",
+  "license": "GPL-2.0+",
+  "categories": [
+    "Game",
+    "BoardGame"
+  ],
+  "keywords": [],
+  "urls": {
+    "homepage": "https://apps.kde.org/knights",
+    "bugtracker": "https://bugs.kde.org/enter_bug.cgi?format=guided&product=knights",
+    "help": "https://docs.kde.org/?application=knights",
+    "donation": "https://www.kde.org/community/donations/?app=knights&source=appdata"
+  },
+  "icon": {
+    "type": "remote",
+    "name": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/icons/128x128@2/org.kde.knights.png"
+  },
+  "screenshots": [
+    {
+      "default": true,
+      "caption": "Knights, chess game",
+      "images": [
+        {
+          "type": "source",
+          "width": "688",
+          "height": "553",
+          "url": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/screenshots/image-1_orig.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "624",
+          "height": "501",
+          "url": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/screenshots/image-1_624x501@1.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "224",
+          "height": "180",
+          "url": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/screenshots/image-1_224x180@1.png"
+        }
+      ]
+    },
+    {
+      "default": false,
+      "caption": "Main Window - Human vs. Chess Engine",
+      "images": [
+        {
+          "type": "source",
+          "width": "2600",
+          "height": "1418",
+          "url": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/screenshots/image-2_orig.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "1248",
+          "height": "680",
+          "url": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/screenshots/image-2_1248x680@1.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "752",
+          "height": "410",
+          "url": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/screenshots/image-2_752x410@1.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "624",
+          "height": "340",
+          "url": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/screenshots/image-2_624x340@1.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "224",
+          "height": "122",
+          "url": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/screenshots/image-2_224x122@1.png"
+        }
+      ]
+    },
+    {
+      "default": false,
+      "caption": "Main Window - Chess Engine vs. Chess Engine",
+      "images": [
+        {
+          "type": "source",
+          "width": "2600",
+          "height": "1418",
+          "url": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/screenshots/image-3_orig.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "1248",
+          "height": "680",
+          "url": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/screenshots/image-3_1248x680@1.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "752",
+          "height": "410",
+          "url": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/screenshots/image-3_752x410@1.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "624",
+          "height": "340",
+          "url": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/screenshots/image-3_624x340@1.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "224",
+          "height": "122",
+          "url": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/screenshots/image-3_224x122@1.png"
+        }
+      ]
+    },
+    {
+      "default": false,
+      "caption": "\"New Game\" Dialog",
+      "images": [
+        {
+          "type": "source",
+          "width": "1034",
+          "height": "514",
+          "url": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/screenshots/image-4_orig.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "752",
+          "height": "373",
+          "url": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/screenshots/image-4_752x373@1.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "624",
+          "height": "310",
+          "url": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/screenshots/image-4_624x310@1.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "224",
+          "height": "111",
+          "url": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/screenshots/image-4_224x111@1.png"
+        }
+      ]
+    },
+    {
+      "default": false,
+      "caption": "Auto-Detection of Chess Engines",
+      "images": [
+        {
+          "type": "source",
+          "width": "944",
+          "height": "809",
+          "url": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/screenshots/image-5_orig.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "752",
+          "height": "644",
+          "url": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/screenshots/image-5_752x644@1.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "624",
+          "height": "534",
+          "url": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/screenshots/image-5_624x534@1.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "224",
+          "height": "191",
+          "url": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/screenshots/image-5_224x191@1.png"
+        }
+      ]
+    },
+    {
+      "default": false,
+      "caption": "Playing online - FICS Console",
+      "images": [
+        {
+          "type": "source",
+          "width": "1671",
+          "height": "1180",
+          "url": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/screenshots/image-6_orig.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "1248",
+          "height": "881",
+          "url": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/screenshots/image-6_1248x881@1.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "752",
+          "height": "531",
+          "url": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/screenshots/image-6_752x531@1.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "624",
+          "height": "440",
+          "url": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/screenshots/image-6_624x440@1.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "224",
+          "height": "158",
+          "url": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/screenshots/image-6_224x158@1.png"
+        }
+      ]
+    },
+    {
+      "default": false,
+      "caption": "Playing online - graphical Seek-Graph",
+      "images": [
+        {
+          "type": "source",
+          "width": "1673",
+          "height": "1183",
+          "url": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/screenshots/image-7_orig.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "1248",
+          "height": "882",
+          "url": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/screenshots/image-7_1248x882@1.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "752",
+          "height": "531",
+          "url": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/screenshots/image-7_752x531@1.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "624",
+          "height": "441",
+          "url": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/screenshots/image-7_624x441@1.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "224",
+          "height": "158",
+          "url": "https://dl.flathub.org/media/org/kde/knights/cc45e348ee328f92c7c1bc118283dbc8/screenshots/image-7_224x158@1.png"
+        }
+      ]
+    }
+  ]
+}

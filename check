@@ -1,0 +1,30 @@
+#!/bin/bash
+set -e
+
+FIX=false
+if [[ "$1" == "--fix" ]]; then
+    FIX=true
+fi
+
+echo "Running lint checks on src/..."
+
+# Check if ruff is available, otherwise use flake8 or pylint
+if command -v ruff &> /dev/null; then
+    echo "Using ruff..."
+    if [[ "$FIX" == true ]]; then
+        ruff check --fix src/
+    else
+        ruff check src/
+    fi
+elif command -v flake8 &> /dev/null; then
+    echo "Using flake8..."
+    flake8 src/
+elif command -v pylint &> /dev/null; then
+    echo "Using pylint..."
+    pylint src/
+else
+    echo "No linter found. Install ruff, flake8, or pylint."
+    exit 1
+fi
+
+echo "Lint checks passed!"

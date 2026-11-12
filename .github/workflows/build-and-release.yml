@@ -1,0 +1,68 @@
+name: Build Database and Release
+
+on:
+  schedule:
+    - cron: '0 5 * * 5'  # Every Friday at 05:00 UTC
+  workflow_dispatch:  # Allow manual trigger
+
+permissions:
+  contents: write  # Required for creating releases
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install flatpak
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y flatpak
+
+      - name: Add flathub remote
+        run: |
+          flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+      - name: Update appstream
+        run: |
+          flatpak update --appstream
+
+      - name: Convert flatpak XML to JSON
+        run: |
+          python3 src/flatpak_xml_to_json.py --xml /var/lib/flatpak/appstream/flathub/x86_64/active/appstream.xml.gz --icons /var/lib/flatpak/appstream/flathub/x86_64/active/icons/128x128 --out "data/all"
+
+      - name: Sync flatpak apps
+        run: |
+          python3 src/flatpak_sync.py --mine data/apps --flatpak "data/all"
+
+      - name: Get latest AppImages
+        run: |
+          python3 src/get_latest_appimages.py
+
+      - name: Build database
+        run: |
+          python3 src/build-database.py
+
+      - name: Pack icons
+        run: |
+          python3 src/pack-icons.py
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: latest
+          tag_name: latest
+          files: |
+            data/output/app-icons.tar.gz
+            data/output/apps.db.tar.gz
+          draft: false
+          prerelease: false
+          make_latest: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,80 @@
+{
+  "id": "org.audacityteam.Audacity",
+  "name": "Audacity",
+  "repo": "pkgforge-dev/Audacity-AppImage-Enhanced",
+  "asset_suffix": "-x86_64.AppImage",
+  "version_regex": "([0-9.-]+)@",
+  "version": "3.7.9-1",
+  "download_url": "https://github.com/pkgforge-dev/Audacity-AppImage-Enhanced/releases/download/3.7.9-1%402026-11-01_1793557266/Audacity-3.7.9-1-anylinux-x86_64.AppImage",
+  "asset_name": "Audacity-3.7.9-1-anylinux-x86_64.AppImage",
+  "published_at": "2026-11-01T18:21:08Z",
+  "summary": "Audacity is the world's most popular audio editing and recording app",
+  "description": "Audacity is the world's most popular audio editing and recording app.\nYou can use Audacity to:\nRecord live audio\nConvert tapes and records into digital recordings or CDs\nEdit WAV, AIFF, FLAC, MP2, MP3 or Ogg Vorbis sound files\nCut, copy, splice or mix sounds together\nChange the speed or pitch of a recording\nApply a wide range of other effects to audio recordings\nand much more!",
+  "developer": "Muse Group",
+  "license": "GPL-3.0-only",
+  "categories": [
+    "AudioVideo",
+    "Audio"
+  ],
+  "keywords": [
+    "sound",
+    "music editing",
+    "voice channel",
+    "frequency",
+    "modulation",
+    "audio trim",
+    "clipping",
+    "noise reduction",
+    "multi track audio editor",
+    "edit",
+    "mixing",
+    "WAV",
+    "AIFF",
+    "FLAC",
+    "MP2",
+    "MP3"
+  ],
+  "urls": {
+    "homepage": "https://www.audacityteam.org/",
+    "bugtracker": "https://github.com/flathub/org.audacityteam.Audacity/issues",
+    "faq": "https://manual.audacityteam.org/man/faq.html",
+    "help": "https://support.audacityteam.org/",
+    "translate": "https://support.audacityteam.org/community/contributing/translating"
+  },
+  "icon": {
+    "type": "remote",
+    "name": "https://dl.flathub.org/media/org/audacityteam/Audacity/0ad4a24524b6c06220649dc83a08ae81/icons/128x128@2/org.audacityteam.Audacity.png"
+  },
+  "screenshots": [
+    {
+      "default": true,
+      "caption": "Main Window",
+      "images": [
+        {
+          "type": "source",
+          "width": "1148",
+          "height": "723",
+          "url": "https://dl.flathub.org/media/org/audacityteam/Audacity/0ad4a24524b6c06220649dc83a08ae81/screenshots/image-1_orig.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "752",
+          "height": "473",
+          "url": "https://dl.flathub.org/media/org/audacityteam/Audacity/0ad4a24524b6c06220649dc83a08ae81/screenshots/image-1_752x473@1.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "624",
+          "height": "392",
+          "url": "https://dl.flathub.org/media/org/audacityteam/Audacity/0ad4a24524b6c06220649dc83a08ae81/screenshots/image-1_624x392@1.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": "224",
+          "height": "141",
+          "url": "https://dl.flathub.org/media/org/audacityteam/Audacity/0ad4a24524b6c06220649dc83a08ae81/screenshots/image-1_224x141@1.png"
+        }
+      ]
+    }
+  ]
+}
