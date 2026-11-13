@@ -7,10 +7,15 @@
   "version": "1.9.0-1",
   "download_url": "https://github.com/pkgforge-dev/Haruna-AppImage/releases/download/1.9.0-1%402026-11-01_1793557950/Haruna-1.9.0-1-anylinux-x86_64.AppImage",
   "asset_name": "Haruna-1.9.0-1-anylinux-x86_64.AppImage",
+  "size": 97249338,
+  "sha256": "2d008d4447c8353498e96064828681eb8325fa539f3b5c9e8bead349f299b683",
+  "zsync_url": "https://github.com/pkgforge-dev/Haruna-AppImage/releases/download/1.9.0-1%402026-11-01_1793557950/Haruna-1.9.0-1-anylinux-x86_64.AppImage.zsync",
+  "arch": "x86_64",
   "published_at": "2026-11-01T18:32:32Z",
+  "version_changed_at": "2026-11-01T18:32:32Z",
   "summary": "Media player",
-  "description": "Open source media player with lots of options to make it work the way you want it.\nFeatures\nplay online videos, through youtube-dl\nsupports youtube playlists\ntoggle playlist with mouse-over, playlist overlays the video\nauto skip chapter containing certain words\nconfigurable shortcuts and mouse buttons\nquick jump to next chapter by middle click on progress bar",
-  "developer": null,
+  "description": "Open source media player with lots of options to make it work the way you want it. Features play online videos, through youtube-dl supports youtube playlists toggle playlist with mouse-over, playlist overlays the video auto skip chapter containing certain words configurable shortcuts and mouse buttons quick jump to next chapter by middle click on progress bar",
+  "developer": "George Florea Bănuș",
   "license": "GPL-3.0-or-later",
   "categories": [
     "AudioVideo",
@@ -36,26 +41,26 @@
       "images": [
         {
           "type": "source",
-          "width": "1204",
-          "height": "753",
+          "width": 1204,
+          "height": 753,
           "url": "https://dl.flathub.org/media/org/kde/haruna/fa2e16c85dd8f40cc46088f2d3ce55c6/screenshots/image-1_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "752",
-          "height": "470",
+          "width": 752,
+          "height": 470,
           "url": "https://dl.flathub.org/media/org/kde/haruna/fa2e16c85dd8f40cc46088f2d3ce55c6/screenshots/image-1_752x470@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "390",
+          "width": 624,
+          "height": 390,
           "url": "https://dl.flathub.org/media/org/kde/haruna/fa2e16c85dd8f40cc46088f2d3ce55c6/screenshots/image-1_624x390@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "140",
+          "width": 224,
+          "height": 140,
           "url": "https://dl.flathub.org/media/org/kde/haruna/fa2e16c85dd8f40cc46088f2d3ce55c6/screenshots/image-1_224x140@1.png"
         }
       ]
@@ -66,26 +71,26 @@
       "images": [
         {
           "type": "source",
-          "width": "1204",
-          "height": "753",
+          "width": 1204,
+          "height": 753,
           "url": "https://dl.flathub.org/media/org/kde/haruna/fa2e16c85dd8f40cc46088f2d3ce55c6/screenshots/image-2_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "752",
-          "height": "470",
+          "width": 752,
+          "height": 470,
           "url": "https://dl.flathub.org/media/org/kde/haruna/fa2e16c85dd8f40cc46088f2d3ce55c6/screenshots/image-2_752x470@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "390",
+          "width": 624,
+          "height": 390,
           "url": "https://dl.flathub.org/media/org/kde/haruna/fa2e16c85dd8f40cc46088f2d3ce55c6/screenshots/image-2_624x390@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "140",
+          "width": 224,
+          "height": 140,
           "url": "https://dl.flathub.org/media/org/kde/haruna/fa2e16c85dd8f40cc46088f2d3ce55c6/screenshots/image-2_224x140@1.png"
         }
       ]
@@ -96,26 +101,26 @@
       "images": [
         {
           "type": "source",
-          "width": "1204",
-          "height": "753",
+          "width": 1204,
+          "height": 753,
           "url": "https://dl.flathub.org/media/org/kde/haruna/fa2e16c85dd8f40cc46088f2d3ce55c6/screenshots/image-3_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "752",
-          "height": "470",
+          "width": 752,
+          "height": 470,
           "url": "https://dl.flathub.org/media/org/kde/haruna/fa2e16c85dd8f40cc46088f2d3ce55c6/screenshots/image-3_752x470@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "390",
+          "width": 624,
+          "height": 390,
           "url": "https://dl.flathub.org/media/org/kde/haruna/fa2e16c85dd8f40cc46088f2d3ce55c6/screenshots/image-3_624x390@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "140",
+          "width": 224,
+          "height": 140,
           "url": "https://dl.flathub.org/media/org/kde/haruna/fa2e16c85dd8f40cc46088f2d3ce55c6/screenshots/image-3_224x140@1.png"
         }
       ]
@@ -126,20 +131,20 @@
       "images": [
         {
           "type": "source",
-          "width": "814",
-          "height": "663",
+          "width": 814,
+          "height": 663,
           "url": "https://dl.flathub.org/media/org/kde/haruna/fa2e16c85dd8f40cc46088f2d3ce55c6/screenshots/image-4_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "508",
+          "width": 624,
+          "height": 508,
           "url": "https://dl.flathub.org/media/org/kde/haruna/fa2e16c85dd8f40cc46088f2d3ce55c6/screenshots/image-4_624x508@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "182",
+          "width": 224,
+          "height": 182,
           "url": "https://dl.flathub.org/media/org/kde/haruna/fa2e16c85dd8f40cc46088f2d3ce55c6/screenshots/image-4_224x182@1.png"
         }
       ]

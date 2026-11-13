@@ -4,14 +4,19 @@
   "repo": "valicm/PhpStorm-AppImage",
   "asset_suffix": "-x86_64.AppImage",
   "version_regex": "([0-9.]+)",
-  "version": "latest",
+  "version": "2026.3",
   "download_url": "https://github.com/valicm/PhpStorm-AppImage/releases/download/latest/PhpStorm-x86_64.AppImage",
   "asset_name": "PhpStorm-x86_64.AppImage",
   "published_at": "2026-10-13T18:43:06Z",
   "title_version_regex": "([0-9.]+)",
+  "size": 1107110392,
+  "sha256": "729e29bc2499bd94cd6348639ff8a44220d54d4b45e65a17c4839af8d2391365",
+  "zsync_url": "https://github.com/valicm/PhpStorm-AppImage/releases/download/latest/PhpStorm-x86_64.AppImage.zsync",
+  "arch": "x86_64",
+  "version_changed_at": "2026-10-13T18:43:06Z",
   "summary": "PHP IDE for Professional Development",
-  "description": "PhpStorm is a PHP IDE that actually ‘gets’ your code. It supports PHP 5.3-8.2, provides on-the-fly\n      error prevention, the best autocompletion and code refactoring, zero-configuration debugging, and\n      an extended HTML, CSS, and JavaScript editor.\nPhpStorm is available for a free 30-day evaluation.\nMonthly and yearly subscription options are available for companies and individual users. Find\n      out more on https://www.jetbrains.com/phpstorm/buy/",
-  "developer": null,
+  "description": "PhpStorm is a PHP IDE that actually ‘gets’ your code. It supports PHP 5.3-8.2, provides on-the-fly error prevention, the best autocompletion and code refactoring, zero-configuration debugging, and an extended HTML, CSS, and JavaScript editor. PhpStorm is available for a free 30-day evaluation. Monthly and yearly subscription options are available for companies and individual users. Find out more on https://www.jetbrains.com/phpstorm/buy/",
+  "developer": "JetBrains s.r.o.",
   "license": "LicenseRef-proprietary",
   "categories": [
     "Development",
@@ -34,32 +39,32 @@
       "images": [
         {
           "type": "source",
-          "width": "1554",
-          "height": "980",
+          "width": 1554,
+          "height": 980,
           "url": "https://dl.flathub.org/media/com/jetbrains/PhpStorm/0b09846ec426ec2a6a9853e7a861d69e/screenshots/image-1_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "1248",
-          "height": "787",
+          "width": 1248,
+          "height": 787,
           "url": "https://dl.flathub.org/media/com/jetbrains/PhpStorm/0b09846ec426ec2a6a9853e7a861d69e/screenshots/image-1_1248x787@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "752",
-          "height": "474",
+          "width": 752,
+          "height": 474,
           "url": "https://dl.flathub.org/media/com/jetbrains/PhpStorm/0b09846ec426ec2a6a9853e7a861d69e/screenshots/image-1_752x474@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "393",
+          "width": 624,
+          "height": 393,
           "url": "https://dl.flathub.org/media/com/jetbrains/PhpStorm/0b09846ec426ec2a6a9853e7a861d69e/screenshots/image-1_624x393@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "141",
+          "width": 224,
+          "height": 141,
           "url": "https://dl.flathub.org/media/com/jetbrains/PhpStorm/0b09846ec426ec2a6a9853e7a861d69e/screenshots/image-1_224x141@1.png"
         }
       ]
@@ -70,32 +75,32 @@
       "images": [
         {
           "type": "source",
-          "width": "3706",
-          "height": "2105",
+          "width": 3706,
+          "height": 2105,
           "url": "https://dl.flathub.org/media/com/jetbrains/PhpStorm/0b09846ec426ec2a6a9853e7a861d69e/screenshots/image-2_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "1248",
-          "height": "708",
+          "width": 1248,
+          "height": 708,
           "url": "https://dl.flathub.org/media/com/jetbrains/PhpStorm/0b09846ec426ec2a6a9853e7a861d69e/screenshots/image-2_1248x708@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "752",
-          "height": "427",
+          "width": 752,
+          "height": 427,
           "url": "https://dl.flathub.org/media/com/jetbrains/PhpStorm/0b09846ec426ec2a6a9853e7a861d69e/screenshots/image-2_752x427@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "354",
+          "width": 624,
+          "height": 354,
           "url": "https://dl.flathub.org/media/com/jetbrains/PhpStorm/0b09846ec426ec2a6a9853e7a861d69e/screenshots/image-2_624x354@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "127",
+          "width": 224,
+          "height": 127,
           "url": "https://dl.flathub.org/media/com/jetbrains/PhpStorm/0b09846ec426ec2a6a9853e7a861d69e/screenshots/image-2_224x127@1.png"
         }
       ]

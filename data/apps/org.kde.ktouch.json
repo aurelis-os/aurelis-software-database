@@ -7,10 +7,15 @@
   "version": "26.08.2-1",
   "download_url": "https://github.com/pkgforge-dev/KTouch-AppImage/releases/download/26.08.2-1%402026-11-01_1793557662/KTouch-26.08.2-1-anylinux-x86_64.AppImage",
   "asset_name": "KTouch-26.08.2-1-anylinux-x86_64.AppImage",
+  "size": 76241432,
+  "sha256": "7c3654719486b38e11ab9f06bda6150f8bc07d92ea29519e815e0ef4f4cd66a8",
+  "zsync_url": "https://github.com/pkgforge-dev/KTouch-AppImage/releases/download/26.08.2-1%402026-11-01_1793557662/KTouch-26.08.2-1-anylinux-x86_64.AppImage.zsync",
+  "arch": "x86_64",
   "published_at": "2026-11-01T18:27:43Z",
+  "version_changed_at": "2026-11-01T18:27:43Z",
   "summary": "Touch Typing Tutor",
-  "description": "KTouch is a typewriter trainer for learning to touch type. It provides you with text to train\n      on and adjusts to different levels depending on how good you are. It displays your keyboard and\n      indicates which key to press next and which is the correct finger to use. You learn typing with\n      all fingers, step by step, without having to look down at the keyboard to find your keys. It is\n      convenient for all ages and the perfect typing tutor for schools, universities, and personal use.\n      KTouch ships with dozens of different courses in many languages and a comfortable course editor.\n      Different keyboard layouts are supported and new user-defined layouts can be created. During training,\n      KTouch collects comprehensive statistical information to help you or your teacher to analyze your\n      progress.",
-  "developer": null,
+  "description": "KTouch is a typewriter trainer for learning to touch type. It provides you with text to train on and adjusts to different levels depending on how good you are. It displays your keyboard and indicates which key to press next and which is the correct finger to use. You learn typing with all fingers, step by step, without having to look down at the keyboard to find your keys. It is convenient for all ages and the perfect typing tutor for schools, universities, and personal use. KTouch ships with dozens of different courses in many languages and a comfortable course editor. Different keyboard layouts are supported and new user-defined layouts can be created. During training, KTouch collects comprehensive statistical information to help you or your teacher to analyze your progress.",
+  "developer": "KDE",
   "license": "GPL-2.0+",
   "categories": [
     "Education"
@@ -33,26 +38,26 @@
       "images": [
         {
           "type": "source",
-          "width": "1000",
-          "height": "729",
+          "width": 1000,
+          "height": 729,
           "url": "https://dl.flathub.org/media/org/kde/ktouch.desktop/4455ef6e222493a8c4de79a7c6cd35f0/screenshots/image-1_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "752",
-          "height": "548",
+          "width": 752,
+          "height": 548,
           "url": "https://dl.flathub.org/media/org/kde/ktouch.desktop/4455ef6e222493a8c4de79a7c6cd35f0/screenshots/image-1_752x548@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "454",
+          "width": 624,
+          "height": 454,
           "url": "https://dl.flathub.org/media/org/kde/ktouch.desktop/4455ef6e222493a8c4de79a7c6cd35f0/screenshots/image-1_624x454@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "163",
+          "width": 224,
+          "height": 163,
           "url": "https://dl.flathub.org/media/org/kde/ktouch.desktop/4455ef6e222493a8c4de79a7c6cd35f0/screenshots/image-1_224x163@1.png"
         }
       ]
@@ -63,26 +68,26 @@
       "images": [
         {
           "type": "source",
-          "width": "1000",
-          "height": "729",
+          "width": 1000,
+          "height": 729,
           "url": "https://dl.flathub.org/media/org/kde/ktouch.desktop/4455ef6e222493a8c4de79a7c6cd35f0/screenshots/image-2_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "752",
-          "height": "548",
+          "width": 752,
+          "height": 548,
           "url": "https://dl.flathub.org/media/org/kde/ktouch.desktop/4455ef6e222493a8c4de79a7c6cd35f0/screenshots/image-2_752x548@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "454",
+          "width": 624,
+          "height": 454,
           "url": "https://dl.flathub.org/media/org/kde/ktouch.desktop/4455ef6e222493a8c4de79a7c6cd35f0/screenshots/image-2_624x454@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "163",
+          "width": 224,
+          "height": 163,
           "url": "https://dl.flathub.org/media/org/kde/ktouch.desktop/4455ef6e222493a8c4de79a7c6cd35f0/screenshots/image-2_224x163@1.png"
         }
       ]
@@ -93,26 +98,26 @@
       "images": [
         {
           "type": "source",
-          "width": "1000",
-          "height": "729",
+          "width": 1000,
+          "height": 729,
           "url": "https://dl.flathub.org/media/org/kde/ktouch.desktop/4455ef6e222493a8c4de79a7c6cd35f0/screenshots/image-3_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "752",
-          "height": "548",
+          "width": 752,
+          "height": 548,
           "url": "https://dl.flathub.org/media/org/kde/ktouch.desktop/4455ef6e222493a8c4de79a7c6cd35f0/screenshots/image-3_752x548@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "454",
+          "width": 624,
+          "height": 454,
           "url": "https://dl.flathub.org/media/org/kde/ktouch.desktop/4455ef6e222493a8c4de79a7c6cd35f0/screenshots/image-3_624x454@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "163",
+          "width": 224,
+          "height": 163,
           "url": "https://dl.flathub.org/media/org/kde/ktouch.desktop/4455ef6e222493a8c4de79a7c6cd35f0/screenshots/image-3_224x163@1.png"
         }
       ]

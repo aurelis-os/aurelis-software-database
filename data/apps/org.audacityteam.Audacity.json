@@ -7,9 +7,14 @@
   "version": "3.7.9-1",
   "download_url": "https://github.com/pkgforge-dev/Audacity-AppImage-Enhanced/releases/download/3.7.9-1%402026-11-01_1793557266/Audacity-3.7.9-1-anylinux-x86_64.AppImage",
   "asset_name": "Audacity-3.7.9-1-anylinux-x86_64.AppImage",
+  "size": 47786074,
+  "sha256": "ed6393437cd72fcfecc18263a582ead6d591b402587c245c884e8c5ce8635110",
+  "zsync_url": "https://github.com/pkgforge-dev/Audacity-AppImage-Enhanced/releases/download/3.7.9-1%402026-11-01_1793557266/Audacity-3.7.9-1-anylinux-x86_64.AppImage.zsync",
+  "arch": "x86_64",
   "published_at": "2026-11-01T18:21:08Z",
+  "version_changed_at": "2026-11-01T18:21:08Z",
   "summary": "Audacity is the world's most popular audio editing and recording app",
-  "description": "Audacity is the world's most popular audio editing and recording app.\nYou can use Audacity to:\nRecord live audio\nConvert tapes and records into digital recordings or CDs\nEdit WAV, AIFF, FLAC, MP2, MP3 or Ogg Vorbis sound files\nCut, copy, splice or mix sounds together\nChange the speed or pitch of a recording\nApply a wide range of other effects to audio recordings\nand much more!",
+  "description": "Audacity is the world's most popular audio editing and recording app. You can use Audacity to: Record live audio Convert tapes and records into digital recordings or CDs Edit WAV, AIFF, FLAC, MP2, MP3 or Ogg Vorbis sound files Cut, copy, splice or mix sounds together Change the speed or pitch of a recording Apply a wide range of other effects to audio recordings and much more!",
   "developer": "Muse Group",
   "license": "GPL-3.0-only",
   "categories": [
@@ -52,26 +57,26 @@
       "images": [
         {
           "type": "source",
-          "width": "1148",
-          "height": "723",
+          "width": 1148,
+          "height": 723,
           "url": "https://dl.flathub.org/media/org/audacityteam/Audacity/0ad4a24524b6c06220649dc83a08ae81/screenshots/image-1_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "752",
-          "height": "473",
+          "width": 752,
+          "height": 473,
           "url": "https://dl.flathub.org/media/org/audacityteam/Audacity/0ad4a24524b6c06220649dc83a08ae81/screenshots/image-1_752x473@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "392",
+          "width": 624,
+          "height": 392,
           "url": "https://dl.flathub.org/media/org/audacityteam/Audacity/0ad4a24524b6c06220649dc83a08ae81/screenshots/image-1_624x392@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "141",
+          "width": 224,
+          "height": 141,
           "url": "https://dl.flathub.org/media/org/audacityteam/Audacity/0ad4a24524b6c06220649dc83a08ae81/screenshots/image-1_224x141@1.png"
         }
       ]

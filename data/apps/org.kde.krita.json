@@ -7,9 +7,14 @@
   "version": "6.0.4.1-3",
   "download_url": "https://github.com/pkgforge-dev/Krita-AppImage-Enhanced/releases/download/6.0.4.1-3%402026-11-01_1793557961/Krita-6.0.4.1-3-anylinux-x86_64.AppImage",
   "asset_name": "Krita-6.0.4.1-3-anylinux-x86_64.AppImage",
+  "size": 228162342,
+  "sha256": "e52d9dc6cdcc674fc124ff45554a2d185d4ac01b40badcc7a93251c86691d076",
+  "zsync_url": "https://github.com/pkgforge-dev/Krita-AppImage-Enhanced/releases/download/6.0.4.1-3%402026-11-01_1793557961/Krita-6.0.4.1-3-anylinux-x86_64.AppImage.zsync",
+  "arch": "x86_64",
   "published_at": "2026-11-01T18:32:43Z",
+  "version_changed_at": "2026-11-01T18:32:43Z",
   "summary": "Digital Painting, Creative Freedom",
-  "description": "This flatpak is community maintained. Please report Flatpak specific bugs that do not occur on the upstream AppImage at https://github.com/flathub/org.kde.krita/issues.\nKrita is the full-featured digital art studio.\nIt is perfect for sketching and painting, and presents an end–to–end solution for creating digital painting files from scratch by masters.\nKrita is a great choice for creating concept art, comics, textures for rendering and matte paintings. Krita supports many colorspaces like RGB and CMYK\n      at 8 and 16 bits integer channels, as well as 16 and 32 bits floating point channels.\nHave fun painting with the advanced brush engines, amazing filters and many handy features that make Krita enormously productive.",
+  "description": "Krita is the full-featured digital art studio. It is perfect for sketching and painting, and presents an end–to–end solution for creating digital painting files from scratch by masters. Krita is a great choice for creating concept art, comics, textures for rendering and matte paintings. Krita supports many colorspaces like RGB and CMYK at 8 and 16 bits integer channels, as well as 16 and 32 bits floating point channels. Have fun painting with the advanced brush engines, amazing filters and many handy features that make Krita enormously productive.",
   "developer": "Krita Foundation",
   "license": "GPL-3.0-only",
   "categories": [
@@ -37,32 +42,32 @@
       "images": [
         {
           "type": "source",
-          "width": "1920",
-          "height": "1043",
+          "width": 1920,
+          "height": 1043,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-1_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "1248",
-          "height": "677",
+          "width": 1248,
+          "height": 677,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-1_1248x677@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "752",
-          "height": "408",
+          "width": 752,
+          "height": 408,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-1_752x408@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "338",
+          "width": 624,
+          "height": 338,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-1_624x338@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "121",
+          "width": 224,
+          "height": 121,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-1_224x121@1.png"
         }
       ]
@@ -73,104 +78,104 @@
       "images": [
         {
           "type": "source",
-          "width": "1920",
-          "height": "1043",
+          "width": 1920,
+          "height": 1043,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-2_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "1248",
-          "height": "677",
+          "width": 1248,
+          "height": 677,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-2_1248x677@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "752",
-          "height": "408",
+          "width": 752,
+          "height": 408,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-2_752x408@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "338",
+          "width": 624,
+          "height": 338,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-2_624x338@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "121",
+          "width": 224,
+          "height": 121,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-2_224x121@1.png"
         }
       ]
     },
     {
-      "default": true,
+      "default": false,
       "caption": "There are over ten immensely powerful brush engines",
       "images": [
         {
           "type": "source",
-          "width": "1920",
-          "height": "1080",
+          "width": 1920,
+          "height": 1080,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-3_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "1248",
-          "height": "702",
+          "width": 1248,
+          "height": 702,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-3_1248x702@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "752",
-          "height": "423",
+          "width": 752,
+          "height": 423,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-3_752x423@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "351",
+          "width": 624,
+          "height": 351,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-3_624x351@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "126",
+          "width": 224,
+          "height": 126,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-3_224x126@1.png"
         }
       ]
     },
     {
-      "default": true,
+      "default": false,
       "caption": "Into animation? Krita provides everything you need for traditional, hand-drawn animation",
       "images": [
         {
           "type": "source",
-          "width": "1920",
-          "height": "1043",
+          "width": 1920,
+          "height": 1043,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-4_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "1248",
-          "height": "677",
+          "width": 1248,
+          "height": 677,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-4_1248x677@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "752",
-          "height": "408",
+          "width": 752,
+          "height": 408,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-4_752x408@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "338",
+          "width": 624,
+          "height": 338,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-4_624x338@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "121",
+          "width": 224,
+          "height": 121,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-4_224x121@1.png"
         }
       ]
@@ -181,32 +186,32 @@
       "images": [
         {
           "type": "source",
-          "width": "1920",
-          "height": "1080",
+          "width": 1920,
+          "height": 1080,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-5_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "1248",
-          "height": "702",
+          "width": 1248,
+          "height": 702,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-5_1248x702@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "752",
-          "height": "423",
+          "width": 752,
+          "height": 423,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-5_752x423@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "351",
+          "width": 624,
+          "height": 351,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-5_624x351@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "126",
+          "width": 224,
+          "height": 126,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-5_224x126@1.png"
         }
       ]
@@ -217,32 +222,32 @@
       "images": [
         {
           "type": "source",
-          "width": "1920",
-          "height": "1080",
+          "width": 1920,
+          "height": 1080,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-6_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "1248",
-          "height": "702",
+          "width": 1248,
+          "height": 702,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-6_1248x702@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "752",
-          "height": "423",
+          "width": 752,
+          "height": 423,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-6_752x423@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "351",
+          "width": 624,
+          "height": 351,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-6_624x351@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "126",
+          "width": 224,
+          "height": 126,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-6_224x126@1.png"
         }
       ]
@@ -253,32 +258,32 @@
       "images": [
         {
           "type": "source",
-          "width": "1920",
-          "height": "1080",
+          "width": 1920,
+          "height": 1080,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-7_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "1248",
-          "height": "702",
+          "width": 1248,
+          "height": 702,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-7_1248x702@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "752",
-          "height": "423",
+          "width": 752,
+          "height": 423,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-7_752x423@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "351",
+          "width": 624,
+          "height": 351,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-7_624x351@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "126",
+          "width": 224,
+          "height": 126,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-7_224x126@1.png"
         }
       ]
@@ -289,32 +294,32 @@
       "images": [
         {
           "type": "source",
-          "width": "1920",
-          "height": "1080",
+          "width": 1920,
+          "height": 1080,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-8_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "1248",
-          "height": "702",
+          "width": 1248,
+          "height": 702,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-8_1248x702@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "752",
-          "height": "423",
+          "width": 752,
+          "height": 423,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-8_752x423@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "351",
+          "width": 624,
+          "height": 351,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-8_624x351@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "126",
+          "width": 224,
+          "height": 126,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-8_224x126@1.png"
         }
       ]
@@ -325,32 +330,32 @@
       "images": [
         {
           "type": "source",
-          "width": "1920",
-          "height": "1080",
+          "width": 1920,
+          "height": 1080,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-9_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "1248",
-          "height": "702",
+          "width": 1248,
+          "height": 702,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-9_1248x702@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "752",
-          "height": "423",
+          "width": 752,
+          "height": 423,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-9_752x423@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "351",
+          "width": 624,
+          "height": 351,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-9_624x351@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "126",
+          "width": 224,
+          "height": 126,
           "url": "https://dl.flathub.org/media/org/kde/krita/1348962dcc0842250c4ce6876acc36cc/screenshots/image-9_224x126@1.png"
         }
       ]

@@ -7,10 +7,14 @@
   "version": "1.26.2",
   "download_url": "https://github.com/zydou/Mailspring-Linux/releases/download/1.26.2/mailspring-1.26.2-amd64.AppImage",
   "asset_name": "mailspring-1.26.2-amd64.AppImage",
+  "size": 191476928,
+  "sha256": "8041466939b91595b532d4d009be586786eccb4ff3de730a4bd4f57e9bd4ada1",
+  "arch": "x86_64",
   "published_at": "2026-10-23T01:10:52Z",
+  "version_changed_at": "2026-10-23T01:10:52Z",
   "summary": "The best email app for people and teams at work",
-  "description": "Mailspring is a new version of Nylas Mail maintained by one of the original authors. It's faster,\n      leaner, and shipping today! It replaces the JavaScript sync code in Nylas Mail with a new C++ sync\n      engine based on Mailcore2. It uses roughly half the RAM and CPU of Nylas Mail and idles with almost\n      zero \"CPU Wakes\", which translates to great battery life. It also has an entirely revamped composer\n      and other great new features.\nMailspring comes packed with powerful features like Unified Inbox, Snooze, Send Later, Mail\n      Rules, Templates and more. Mailspring Pro, which you can unlock with a monthly subscription, adds\n      even more features for people who send a ton of email: link tracking, read receipts, mailbox analytics,\n      contact and company profiles. All of these features run in the client - Mailspring does not send\n      your email credentials to the cloud.",
-  "developer": null,
+  "description": "Mailspring is a new version of Nylas Mail maintained by one of the original authors. It's faster, leaner, and shipping today! It replaces the JavaScript sync code in Nylas Mail with a new C++ sync engine based on Mailcore2. It uses roughly half the RAM and CPU of Nylas Mail and idles with almost zero \"CPU Wakes\", which translates to great battery life. It also has an entirely revamped composer and other great new features. Mailspring comes packed with powerful features like Unified Inbox, Snooze, Send Later, Mail Rules, Templates and more. Mailspring Pro, which you can unlock with a monthly subscription, adds even more features for people who send a ton of email: link tracking, read receipts, mailbox analytics, contact and company profiles. All of these features run in the client - Mailspring does not send your email credentials to the cloud.",
+  "developer": "Mailspring",
   "license": "GPL-3.0+",
   "categories": [
     "Network",
@@ -41,26 +45,26 @@
       "images": [
         {
           "type": "source",
-          "width": "1572",
-          "height": "652",
+          "width": 1572,
+          "height": 652,
           "url": "https://dl.flathub.org/media/com/getmailspring/Mailspring/e9f18220039f0ef20406c0f51511a78f/screenshots/image-1_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "752",
-          "height": "311",
+          "width": 752,
+          "height": 311,
           "url": "https://dl.flathub.org/media/com/getmailspring/Mailspring/e9f18220039f0ef20406c0f51511a78f/screenshots/image-1_752x311@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "258",
+          "width": 624,
+          "height": 258,
           "url": "https://dl.flathub.org/media/com/getmailspring/Mailspring/e9f18220039f0ef20406c0f51511a78f/screenshots/image-1_624x258@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "92",
+          "width": 224,
+          "height": 92,
           "url": "https://dl.flathub.org/media/com/getmailspring/Mailspring/e9f18220039f0ef20406c0f51511a78f/screenshots/image-1_224x92@1.png"
         }
       ]

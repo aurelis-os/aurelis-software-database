@@ -7,10 +7,15 @@
   "version": "26.08.2-1",
   "download_url": "https://github.com/pkgforge-dev/KCalc-AppImage/releases/download/26.08.2-1%402026-11-01_1793557611/KCalc-26.08.2-1-anylinux-x86_64.AppImage",
   "asset_name": "KCalc-26.08.2-1-anylinux-x86_64.AppImage",
+  "size": 31369000,
+  "sha256": "7313e19097830f663d5d2c68d0eda3684a315be3ede825664e829cf4025ddd87",
+  "zsync_url": "https://github.com/pkgforge-dev/KCalc-AppImage/releases/download/26.08.2-1%402026-11-01_1793557611/KCalc-26.08.2-1-anylinux-x86_64.AppImage.zsync",
+  "arch": "x86_64",
   "published_at": "2026-11-01T18:26:53Z",
+  "version_changed_at": "2026-11-01T18:26:53Z",
   "summary": "Scientific calculator",
-  "description": "KCalc has everything you would expect from a scientific calculator, plus:\nTrigonometric functions, logic operations and statistical calculations\nA results stack which enables convenient recall of previous calculation results\nPrecision is user-definable\nThe display allows cut and paste of numbers\nThe display colors and font are configurable, aiding usability\nThe use of key-bindings make it easy to use without a pointing device",
-  "developer": null,
+  "description": "KCalc has everything you would expect from a scientific calculator, plus: Trigonometric functions, logic operations and statistical calculations A results stack which enables convenient recall of previous calculation results Precision is user-definable The display allows cut and paste of numbers The display colors and font are configurable, aiding usability The use of key-bindings make it easy to use without a pointing device",
+  "developer": "KDE",
   "license": "GPL-2.0+",
   "categories": [
     "Utility",
@@ -35,14 +40,14 @@
       "images": [
         {
           "type": "source",
-          "width": "487",
-          "height": "575",
+          "width": 487,
+          "height": 575,
           "url": "https://dl.flathub.org/media/org/kde/kcalc.desktop/619af290fd139b30ac6f0432a766cd65/screenshots/image-1_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "264",
+          "width": 224,
+          "height": 264,
           "url": "https://dl.flathub.org/media/org/kde/kcalc.desktop/619af290fd139b30ac6f0432a766cd65/screenshots/image-1_224x264@1.png"
         }
       ]
@@ -53,20 +58,20 @@
       "images": [
         {
           "type": "source",
-          "width": "814",
-          "height": "748",
+          "width": 814,
+          "height": 748,
           "url": "https://dl.flathub.org/media/org/kde/kcalc.desktop/619af290fd139b30ac6f0432a766cd65/screenshots/image-2_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "573",
+          "width": 624,
+          "height": 573,
           "url": "https://dl.flathub.org/media/org/kde/kcalc.desktop/619af290fd139b30ac6f0432a766cd65/screenshots/image-2_624x573@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "205",
+          "width": 224,
+          "height": 205,
           "url": "https://dl.flathub.org/media/org/kde/kcalc.desktop/619af290fd139b30ac6f0432a766cd65/screenshots/image-2_224x205@1.png"
         }
       ]
@@ -77,14 +82,14 @@
       "images": [
         {
           "type": "source",
-          "width": "728",
-          "height": "692",
+          "width": 728,
+          "height": 692,
           "url": "https://dl.flathub.org/media/org/kde/kcalc.desktop/619af290fd139b30ac6f0432a766cd65/screenshots/image-3_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "212",
+          "width": 224,
+          "height": 212,
           "url": "https://dl.flathub.org/media/org/kde/kcalc.desktop/619af290fd139b30ac6f0432a766cd65/screenshots/image-3_224x212@1.png"
         }
       ]
@@ -95,20 +100,20 @@
       "images": [
         {
           "type": "source",
-          "width": "814",
-          "height": "692",
+          "width": 814,
+          "height": 692,
           "url": "https://dl.flathub.org/media/org/kde/kcalc.desktop/619af290fd139b30ac6f0432a766cd65/screenshots/image-4_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "530",
+          "width": 624,
+          "height": 530,
           "url": "https://dl.flathub.org/media/org/kde/kcalc.desktop/619af290fd139b30ac6f0432a766cd65/screenshots/image-4_624x530@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "190",
+          "width": 224,
+          "height": 190,
           "url": "https://dl.flathub.org/media/org/kde/kcalc.desktop/619af290fd139b30ac6f0432a766cd65/screenshots/image-4_224x190@1.png"
         }
       ]

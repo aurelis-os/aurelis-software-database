@@ -7,9 +7,14 @@
   "version": "2.8.0-3",
   "download_url": "https://github.com/pkgforge-dev/KeePassXC-AppImage-Enhanced/releases/download/2.8.0-3%402026-11-05_1793908718/KeePassXC-2.8.0-3-anylinux-x86_64.AppImage",
   "asset_name": "KeePassXC-2.8.0-3-anylinux-x86_64.AppImage",
+  "size": 41151463,
+  "sha256": "08edc4dbd20fbbee6c6d67cd9b0c9508d7e51e2ccbb452aa861d1f9d4e9ba72d",
+  "zsync_url": "https://github.com/pkgforge-dev/KeePassXC-AppImage-Enhanced/releases/download/2.8.0-3%402026-11-05_1793908718/KeePassXC-2.8.0-3-anylinux-x86_64.AppImage.zsync",
+  "arch": "x86_64",
   "published_at": "2026-11-05T19:58:40Z",
+  "version_changed_at": "2026-11-05T19:58:40Z",
   "summary": "Secure and Full-featured Password Manager",
-  "description": "KeePassXC is a modern, secure, and open-source password manager for your most sensitive information.\n      Designed for people with extremely high demands of secure personal data management. You can store\n      many different types of information, such as usernames, passwords, URLs, attachments, and notes in\n      an offline, encrypted file. Major features include: Auto-Type into any window, browser integration,\n      password generator, advanced search, comprehensive reports, FDO Secret Service integration, SSH agent\n      key management, and many more!",
+  "description": "KeePassXC is a modern, secure, and open-source password manager for your most sensitive information. Designed for people with extremely high demands of secure personal data management. You can store many different types of information, such as usernames, passwords, URLs, attachments, and notes in an offline, encrypted file. Major features include: Auto-Type into any window, browser integration, password generator, advanced search, comprehensive reports, FDO Secret Service integration, SSH agent key management, and many more!",
   "developer": "KeePassXC Team",
   "license": "GPL-3.0-or-later",
   "categories": [
@@ -22,12 +27,6 @@
     "password-manager",
     "yubikey",
     "password",
-    "keepass",
-    "sicherheit",
-    "privatsphäre",
-    "passwort-manager",
-    "yubikey",
-    "passwort",
     "keepass"
   ],
   "urls": {
@@ -52,32 +51,32 @@
       "images": [
         {
           "type": "source",
-          "width": "1553",
-          "height": "1181",
+          "width": 1553,
+          "height": 1181,
           "url": "https://dl.flathub.org/media/org/keepassxc/KeePassXC.desktop/8703bd4e659abcb1dac1d6646881bb00/screenshots/image-1_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "1248",
-          "height": "949",
+          "width": 1248,
+          "height": 949,
           "url": "https://dl.flathub.org/media/org/keepassxc/KeePassXC.desktop/8703bd4e659abcb1dac1d6646881bb00/screenshots/image-1_1248x949@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "752",
-          "height": "571",
+          "width": 752,
+          "height": 571,
           "url": "https://dl.flathub.org/media/org/keepassxc/KeePassXC.desktop/8703bd4e659abcb1dac1d6646881bb00/screenshots/image-1_752x571@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "474",
+          "width": 624,
+          "height": 474,
           "url": "https://dl.flathub.org/media/org/keepassxc/KeePassXC.desktop/8703bd4e659abcb1dac1d6646881bb00/screenshots/image-1_624x474@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "170",
+          "width": 224,
+          "height": 170,
           "url": "https://dl.flathub.org/media/org/keepassxc/KeePassXC.desktop/8703bd4e659abcb1dac1d6646881bb00/screenshots/image-1_224x170@1.png"
         }
       ]
@@ -88,32 +87,32 @@
       "images": [
         {
           "type": "source",
-          "width": "1551",
-          "height": "1104",
+          "width": 1551,
+          "height": 1104,
           "url": "https://dl.flathub.org/media/org/keepassxc/KeePassXC.desktop/8703bd4e659abcb1dac1d6646881bb00/screenshots/image-2_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "1248",
-          "height": "888",
+          "width": 1248,
+          "height": 888,
           "url": "https://dl.flathub.org/media/org/keepassxc/KeePassXC.desktop/8703bd4e659abcb1dac1d6646881bb00/screenshots/image-2_1248x888@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "752",
-          "height": "535",
+          "width": 752,
+          "height": 535,
           "url": "https://dl.flathub.org/media/org/keepassxc/KeePassXC.desktop/8703bd4e659abcb1dac1d6646881bb00/screenshots/image-2_752x535@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "444",
+          "width": 624,
+          "height": 444,
           "url": "https://dl.flathub.org/media/org/keepassxc/KeePassXC.desktop/8703bd4e659abcb1dac1d6646881bb00/screenshots/image-2_624x444@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "159",
+          "width": 224,
+          "height": 159,
           "url": "https://dl.flathub.org/media/org/keepassxc/KeePassXC.desktop/8703bd4e659abcb1dac1d6646881bb00/screenshots/image-2_224x159@1.png"
         }
       ]
@@ -124,32 +123,32 @@
       "images": [
         {
           "type": "source",
-          "width": "1887",
-          "height": "1346",
+          "width": 1887,
+          "height": 1346,
           "url": "https://dl.flathub.org/media/org/keepassxc/KeePassXC.desktop/8703bd4e659abcb1dac1d6646881bb00/screenshots/image-3_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "1248",
-          "height": "890",
+          "width": 1248,
+          "height": 890,
           "url": "https://dl.flathub.org/media/org/keepassxc/KeePassXC.desktop/8703bd4e659abcb1dac1d6646881bb00/screenshots/image-3_1248x890@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "752",
-          "height": "536",
+          "width": 752,
+          "height": 536,
           "url": "https://dl.flathub.org/media/org/keepassxc/KeePassXC.desktop/8703bd4e659abcb1dac1d6646881bb00/screenshots/image-3_752x536@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "445",
+          "width": 624,
+          "height": 445,
           "url": "https://dl.flathub.org/media/org/keepassxc/KeePassXC.desktop/8703bd4e659abcb1dac1d6646881bb00/screenshots/image-3_624x445@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "159",
+          "width": 224,
+          "height": 159,
           "url": "https://dl.flathub.org/media/org/keepassxc/KeePassXC.desktop/8703bd4e659abcb1dac1d6646881bb00/screenshots/image-3_224x159@1.png"
         }
       ]
@@ -160,32 +159,32 @@
       "images": [
         {
           "type": "source",
-          "width": "1553",
-          "height": "1181",
+          "width": 1553,
+          "height": 1181,
           "url": "https://dl.flathub.org/media/org/keepassxc/KeePassXC.desktop/8703bd4e659abcb1dac1d6646881bb00/screenshots/image-4_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "1248",
-          "height": "949",
+          "width": 1248,
+          "height": 949,
           "url": "https://dl.flathub.org/media/org/keepassxc/KeePassXC.desktop/8703bd4e659abcb1dac1d6646881bb00/screenshots/image-4_1248x949@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "752",
-          "height": "571",
+          "width": 752,
+          "height": 571,
           "url": "https://dl.flathub.org/media/org/keepassxc/KeePassXC.desktop/8703bd4e659abcb1dac1d6646881bb00/screenshots/image-4_752x571@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "474",
+          "width": 624,
+          "height": 474,
           "url": "https://dl.flathub.org/media/org/keepassxc/KeePassXC.desktop/8703bd4e659abcb1dac1d6646881bb00/screenshots/image-4_624x474@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "170",
+          "width": 224,
+          "height": 170,
           "url": "https://dl.flathub.org/media/org/keepassxc/KeePassXC.desktop/8703bd4e659abcb1dac1d6646881bb00/screenshots/image-4_224x170@1.png"
         }
       ]

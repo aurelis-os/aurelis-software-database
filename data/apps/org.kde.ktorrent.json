@@ -7,10 +7,15 @@
   "version": "26.08.2-1",
   "download_url": "https://github.com/pkgforge-dev/KTorrent-AppImage/releases/download/26.08.2-1%402026-11-01_1793557698/KTorrent-26.08.2-1-anylinux-x86_64.AppImage",
   "asset_name": "KTorrent-26.08.2-1-anylinux-x86_64.AppImage",
+  "size": 167786740,
+  "sha256": "05284c7005712a7bb5123f12d8317102985c48636d24bd47f90061da762caca4",
+  "zsync_url": "https://github.com/pkgforge-dev/KTorrent-AppImage/releases/download/26.08.2-1%402026-11-01_1793557698/KTorrent-26.08.2-1-anylinux-x86_64.AppImage.zsync",
+  "arch": "x86_64",
   "published_at": "2026-11-01T18:28:19Z",
+  "version_changed_at": "2026-11-01T18:28:19Z",
   "summary": "BitTorrent Client",
-  "description": "KTorrent is a BitTorrent application by KDE which allows you to download files using the BitTorrent\n      protocol. It enables you to run multiple torrents at the same time and comes with extended features\n      to make it a full-featured client for BitTorrent.\nFeatures:\nQueuing of torrents\nGlobal and per torrent speed limits\nPreviewing of certain file types, build in (video and audio)\nImporting of partially or fully downloaded files\nFile prioritization for multi-file torrents\nSelective downloading for multi-file torrents\nKick/ban peers with an additional IP Filter dialog for list/edit purposes\nUDP tracker support\nSupport for private trackers and torrents\nSupport for µTorrent's peer exchange\nSupport for protocol encryption (compatible with Azureus)\nSupport for creating trackerless torrents\nSupport for distributed hash tables (DHT, the Mainline version)\nSupport for UPnP to automatically forward ports on a LAN with dynamic assigned hosts\nSupport for webseeds\nSystem tray integration\nTracker authentication support\nConnection through a proxy\nIn addition to the built-in functionalities, there are some plugins available for KTorrent.",
-  "developer": null,
+  "description": "KTorrent is a BitTorrent application by KDE which allows you to download files using the BitTorrent protocol. It enables you to run multiple torrents at the same time and comes with extended features to make it a full-featured client for BitTorrent. Features: Queuing of torrents Global and per torrent speed limits Previewing of certain file types, build in (video and audio) Importing of partially or fully downloaded files File prioritization for multi-file torrents Selective downloading for multi-file torrents Kick/ban peers with an additional IP Filter dialog for list/edit purposes UDP tracker support Support for private trackers and torrents Support for µTorrent's peer exchange Support for protocol encryption (compatible with Azureus) Support for creating trackerless torrents Support for distributed hash tables (DHT, the Mainline version) Support for UPnP to automatically forward ports on a LAN with dynamic assigned hosts Support for webseeds System tray integration Tracker authentication support Connection through a proxy In addition to the built-in functionalities, there are some plugins available for KTorrent.",
+  "developer": "KDE",
   "license": "GPL-2.0+",
   "categories": [
     "Network",
@@ -34,26 +39,26 @@
       "images": [
         {
           "type": "source",
-          "width": "1321",
-          "height": "916",
+          "width": 1321,
+          "height": 916,
           "url": "https://dl.flathub.org/media/org/kde/ktorrent.desktop/79d78189ef728df64d8a99056b4c88c0/screenshots/image-1_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "752",
-          "height": "521",
+          "width": 752,
+          "height": 521,
           "url": "https://dl.flathub.org/media/org/kde/ktorrent.desktop/79d78189ef728df64d8a99056b4c88c0/screenshots/image-1_752x521@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "432",
+          "width": 624,
+          "height": 432,
           "url": "https://dl.flathub.org/media/org/kde/ktorrent.desktop/79d78189ef728df64d8a99056b4c88c0/screenshots/image-1_624x432@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "155",
+          "width": 224,
+          "height": 155,
           "url": "https://dl.flathub.org/media/org/kde/ktorrent.desktop/79d78189ef728df64d8a99056b4c88c0/screenshots/image-1_224x155@1.png"
         }
       ]

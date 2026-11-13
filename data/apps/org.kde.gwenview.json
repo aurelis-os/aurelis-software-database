@@ -7,10 +7,15 @@
   "version": "26.08.3-1",
   "download_url": "https://github.com/pkgforge-dev/Gwenview-AppImage/releases/download/26.08.3-1%402026-11-07_1794058946/Gwenview-26.08.3-1-anylinux-x86_64.AppImage",
   "asset_name": "Gwenview-26.08.3-1-anylinux-x86_64.AppImage",
+  "size": 66186513,
+  "sha256": "091f256a4dea8d9c9cea7b401312a3340058a063f690350ca4261336b8036921",
+  "zsync_url": "https://github.com/pkgforge-dev/Gwenview-AppImage/releases/download/26.08.3-1%402026-11-07_1794058946/Gwenview-26.08.3-1-anylinux-x86_64.AppImage.zsync",
+  "arch": "x86_64",
   "published_at": "2026-11-07T13:42:27Z",
+  "version_changed_at": "2026-11-07T13:42:27Z",
   "summary": "Image Viewer",
-  "description": "Gwenview is a fast and easy to use image viewer by KDE, ideal for browsing and displaying a\n      collection of images.\nFeatures:\nSimple image editing: rotate, crop, resize, mirror, flip, reduce red eye, and adjust brightness,\n        contrast, or gamma\nAnnotate and mark up images with arrows, shapes, text boxes, image stamps, and more\nBasic file management actions such as copy, move, delete, and others",
-  "developer": null,
+  "description": "Gwenview is a fast and easy to use image viewer by KDE, ideal for browsing and displaying a collection of images. Features: Simple image editing: rotate, crop, resize, mirror, flip, reduce red eye, and adjust brightness, contrast, or gamma Annotate and mark up images with arrows, shapes, text boxes, image stamps, and more Basic file management actions such as copy, move, delete, and others",
+  "developer": "KDE",
   "license": "GPL-2.0+",
   "categories": [
     "Graphics",
@@ -35,26 +40,26 @@
       "images": [
         {
           "type": "source",
-          "width": "1208",
-          "height": "843",
+          "width": 1208,
+          "height": 843,
           "url": "https://dl.flathub.org/media/org/kde/gwenview.desktop/4dba17ecdbad0aa3964b574cd0018a1a/screenshots/image-1_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "752",
-          "height": "524",
+          "width": 752,
+          "height": 524,
           "url": "https://dl.flathub.org/media/org/kde/gwenview.desktop/4dba17ecdbad0aa3964b574cd0018a1a/screenshots/image-1_752x524@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "435",
+          "width": 624,
+          "height": 435,
           "url": "https://dl.flathub.org/media/org/kde/gwenview.desktop/4dba17ecdbad0aa3964b574cd0018a1a/screenshots/image-1_624x435@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "156",
+          "width": 224,
+          "height": 156,
           "url": "https://dl.flathub.org/media/org/kde/gwenview.desktop/4dba17ecdbad0aa3964b574cd0018a1a/screenshots/image-1_224x156@1.png"
         }
       ]
@@ -65,26 +70,26 @@
       "images": [
         {
           "type": "source",
-          "width": "1208",
-          "height": "826",
+          "width": 1208,
+          "height": 826,
           "url": "https://dl.flathub.org/media/org/kde/gwenview.desktop/4dba17ecdbad0aa3964b574cd0018a1a/screenshots/image-2_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "752",
-          "height": "514",
+          "width": 752,
+          "height": 514,
           "url": "https://dl.flathub.org/media/org/kde/gwenview.desktop/4dba17ecdbad0aa3964b574cd0018a1a/screenshots/image-2_752x514@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "426",
+          "width": 624,
+          "height": 426,
           "url": "https://dl.flathub.org/media/org/kde/gwenview.desktop/4dba17ecdbad0aa3964b574cd0018a1a/screenshots/image-2_624x426@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "153",
+          "width": 224,
+          "height": 153,
           "url": "https://dl.flathub.org/media/org/kde/gwenview.desktop/4dba17ecdbad0aa3964b574cd0018a1a/screenshots/image-2_224x153@1.png"
         }
       ]

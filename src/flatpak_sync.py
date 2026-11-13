@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Update the `flathub` block of my app JSONs from the fresh Flatpak Info export.
+"""Merge Flathub fields and icon into existing app files.
 
-Only files in --mine are touched. The `local` block (github_repo, version, ...)
-is never modified. A file is rewritten only if something really changed.
+Flat merge of Flathub fields only. Never touch curated or generated fields.
+Icons go to data/icons/.
 """
 
 import argparse
@@ -11,26 +11,62 @@ import shutil
 import sys
 from pathlib import Path
 
+# Import shared helpers
+sys.path.insert(0, str(Path(__file__).parent))
+from common import (
+    normalize_description,
+    normalize_keywords,
+    normalize_categories,
+    normalize_screenshots,
+    write_json,
+)
 
-def load(path):
+# Fields owned by Flathub (flatpak_sync)
+FLATHUB_FIELDS = {
+    "name", "summary", "description", "developer", "license",
+    "categories", "keywords", "urls", "screenshots"
+}
+
+
+def load_json(path):
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def diff_keys(old, new):
-    """Return the names of top-level fields that differ between two dicts."""
-    keys = set(old) | set(new)
-    return sorted(k for k in keys if old.get(k) != new.get(k))
+def normalize_flathub_data(data: dict) -> dict:
+    """Apply normalizers to Flathub-owned fields."""
+    result = data.copy()
+    if "description" in result:
+        result["description"] = normalize_description(result["description"])
+    if "keywords" in result:
+        result["keywords"] = normalize_keywords(result["keywords"])
+    if "categories" in result:
+        result["categories"] = normalize_categories(result["categories"])
+    if "screenshots" in result:
+        result["screenshots"] = normalize_screenshots(result["screenshots"])
+    return result
+
+
+def is_empty_value(value):
+    """Check if a value is considered empty (null, [], {}, '')."""
+    if value is None:
+        return True
+    if isinstance(value, (list, dict, str)) and len(value) == 0:
+        return True
+    return False
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--mine", required=True, help="folder with my JSON files (one per app id)")
-    ap.add_argument("--flatpak", default="Flatpak Info", help="folder made by flatpak_xml_to_json.py")
+    ap.add_argument("--flatpak", default="data/all", help="folder made by flatpak_xml_to_json.py")
+    ap.add_argument("--icons-dir", default="data/icons", help="destination folder for icons")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
     mine_dir = Path(args.mine)
     fp_dir = Path(args.flatpak)
+    icons_dir = Path(args.icons_dir)
+    icons_dir.mkdir(parents=True, exist_ok=True)
 
     updated = unchanged = missing = 0
 
@@ -39,38 +75,60 @@ def main():
         fp_path = fp_dir / f"{app_id}.json"
 
         if not fp_path.is_file():
-            print(f"  MISSING in Flatpak Info: {app_id}", file=sys.stderr)
+            print(f"  MISSING in Flatpak export: {app_id}", file=sys.stderr)
             missing += 1
             continue
 
-        mine = load(mine_path)
-        fresh = load(fp_path).get("flathub", {})
-        old = mine.get("flathub", {})
+        mine = load_json(mine_path)
+        fresh = load_json(fp_path)
 
-        changed = diff_keys(old, fresh)
-        if not changed:
+        # Normalize fresh Flathub data before comparing
+        fresh = normalize_flathub_data(fresh)
+
+        # Build the merged data: start with mine, update only Flathub fields
+        # but don't overwrite with empty values
+        merged = mine.copy()
+        changed_fields = []
+
+        for field in FLATHUB_FIELDS:
+            fresh_value = fresh.get(field)
+            if is_empty_value(fresh_value):
+                # Don't overwrite with empty Flathub value
+                continue
+            old_value = merged.get(field)
+            if old_value != fresh_value:
+                merged[field] = fresh_value
+                changed_fields.append(field)
+
+        # Handle icon
+        icon_changed = False
+        # Always use the local icon file copied by flatpak_xml_to_json.py
+        icon_name = f"{app_id}.png"
+        src_icon = fp_dir / icon_name
+        dst_icon = icons_dir / icon_name
+        if src_icon.is_file():
+            if not dst_icon.exists() or src_icon.read_bytes() != dst_icon.read_bytes():
+                if not args.dry_run:
+                    shutil.copyfile(src_icon, dst_icon)
+                icon_changed = True
+            # Always set the icon field to the cached name
+            merged["icon"] = {"type": "cached", "name": icon_name}
+        else:
+            # Keep existing icon if no new one
+            if "icon" not in merged:
+                merged["icon"] = {"type": "cached", "name": icon_name}
+
+        if not changed_fields and not icon_changed:
             unchanged += 1
             continue
 
-        print(f"  {app_id}: {', '.join(changed)}")
+        print(f"  {app_id}: {', '.join(changed_fields)}" + (" +icon" if icon_changed else ""))
         updated += 1
+
         if args.dry_run:
             continue
 
-        # Preserve top-level icon field (not in flathub block)
-        icon = mine.get("icon")
-        mine["flathub"] = fresh
-        if icon is not None:
-            mine["icon"] = icon
-        mine_path.write_text(
-            json.dumps(mine, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
-        )
-
-        # refresh the icon only if its content really differs
-        src_icon = fp_dir / f"{app_id}.png"
-        dst_icon = mine_dir / f"{app_id}.png"
-        if src_icon.is_file() and (not dst_icon.exists() or src_icon.read_bytes() != dst_icon.read_bytes()):
-            shutil.copyfile(src_icon, dst_icon)
+        write_json(mine_path, merged)
 
     print(
         f"Done: {updated} updated, {unchanged} unchanged, {missing} missing"

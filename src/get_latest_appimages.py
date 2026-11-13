@@ -1,123 +1,330 @@
 #!/usr/bin/env python3
 """
-Script to fetch latest AppImage release links and versions from GitHub repos.
-Updates version, download_url, asset_name, published_at in each apps/*.json file.
+Fetch latest AppImage release info from GitHub and update app JSON files.
+
+Features:
+- GitHub token auth (GITHUB_TOKEN or GH_TOKEN)
+- Retries with exponential backoff
+- Rate limit handling
+- Parallel fetch with configurable workers
+- Per-app failure threshold
+- Dry-run mode
+- Per-id mode
+- Extracts: version, download_url, asset_name, size, sha256, zsync_url, arch, published_at, version_changed_at
 """
 
+import argparse
 import json
 import os
 import re
 import sys
+import time
 import urllib.error
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from pathlib import Path
+from typing import Any
+
+# Import shared helpers
+sys.path.insert(0, str(Path(__file__).parent))
+from common import (
+    detect_arch,
+    extract_version,
+    find_sha256,
+    find_zsync_url,
+    compute_version_changed_at,
+    write_json,
+    format_generated_at,
+)
 
 GITHUB_API_BASE = "https://api.github.com"
 
+# Color codes for stderr output
 GREEN = "\033[92m"
 RED = "\033[91m"
+YELLOW = "\033[93m"
 RESET = "\033[0m"
+BOLD = "\033[1m"
 
 
-def fetch_latest_release(repo: str) -> dict | None:
+class RateLimitExceeded(Exception):
+    """Raised when GitHub API rate limit is exhausted."""
+    def __init__(self, reset_time: int | None = None):
+        self.reset_time = reset_time
+        super().__init__("Rate limit exceeded")
+
+
+def get_github_token() -> str | None:
+    """Get GitHub token from environment."""
+    return os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
+
+
+def make_request(url: str, token: str | None, max_retries: int = 3) -> dict | None:
+    """
+    Make HTTP request to GitHub API with retries and rate limit handling.
+    Returns parsed JSON or None on 404.
+    Raises RateLimitExceeded on rate limit exhaustion.
+    """
+    headers = {"Accept": "application/vnd.github+json"}
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+
+    for attempt in range(max_retries):
+        req = urllib.request.Request(url, headers=headers)
+        try:
+            with urllib.request.urlopen(req, timeout=30) as response:
+                # Check rate limit headers
+                remaining = response.headers.get("X-RateLimit-Remaining")
+                if remaining is not None and int(remaining) == 0:
+                    reset = response.headers.get("X-RateLimit-Reset")
+                    reset_time = int(reset) if reset else None
+                    raise RateLimitExceeded(reset_time)
+
+                return json.load(response)
+
+        except urllib.error.HTTPError as e:
+            if e.code == 404:
+                return None
+            if e.code == 403:
+                # Check if it's rate limit
+                reset = e.headers.get("X-RateLimit-Reset")
+                reset_time = int(reset) if reset else None
+                raise RateLimitExceeded(reset_time)
+            if e.code in (429, 500, 502, 503, 504):
+                # Retryable error
+                if attempt < max_retries - 1:
+                    wait_time = 2 ** attempt  # exponential backoff: 1, 2, 4
+                    time.sleep(wait_time)
+                    continue
+            # Non-retryable error
+            raise
+
+        except (urllib.error.URLError, TimeoutError) as e:
+            if attempt < max_retries - 1:
+                wait_time = 2 ** attempt
+                time.sleep(wait_time)
+                continue
+            raise
+
+    return None
+
+
+def fetch_latest_release(repo: str, token: str | None) -> dict | None:
+    """Fetch latest release from GitHub API."""
     url = f"{GITHUB_API_BASE}/repos/{repo}/releases/latest"
-    req = urllib.request.Request(url, headers={"Accept": "application/vnd.github+json"})
-    try:
-        with urllib.request.urlopen(req, timeout=30) as response:
-            return json.load(response)
-    except urllib.error.HTTPError as e:
-        print(f"  {'No releases found' if e.code == 404 else f'Error fetching {repo}: {e}'} for {repo}", file=sys.stderr)
-        return None
-    except (urllib.error.URLError, TimeoutError) as e:
-        print(f"  Error fetching {repo}: {e}", file=sys.stderr)
-        return None
+    return make_request(url, token)
 
 
 def find_appimage_asset(release: dict, asset_suffix: str) -> dict | None:
+    """Find the AppImage asset matching the suffix."""
     for asset in release.get("assets", []):
         if asset["name"].endswith(asset_suffix):
             return asset
     return None
 
 
-def extract_version(tag_name: str, version_regex: str | None = None) -> str:
-    if version_regex:
-        match = re.search(version_regex, tag_name)
-        if match:
-            return match.group(1)
-    return tag_name.lstrip("v")
-
-
-def insert_after_version_regex(data: dict, updates: dict) -> dict:
-    """Return new dict with update keys placed after 'version_regex', preserving order."""
+def insert_generated_fields(data: dict, updates: dict) -> dict:
+    """
+    Insert generated fields after title_version_regex (or version_regex),
+    preserving key order: curated -> generated -> flathub.
+    Prefers title_version_regex if present.
+    """
     result = {}
+    inserted = False
+
     for key, value in data.items():
-        if key in updates:
-            continue  # will be inserted after version_regex
         result[key] = value
-        if key == "version_regex":
+        # Prefer title_version_regex over version_regex
+        if key == "title_version_regex" and not inserted:
             for uk, uv in updates.items():
                 result[uk] = uv
-    # If version_regex wasn't found, just append
-    for uk, uv in updates.items():
-        if uk not in result:
+            inserted = True
+        elif key == "version_regex" and not inserted and "title_version_regex" not in data:
+            for uk, uv in updates.items():
+                result[uk] = uv
+            inserted = True
+
+    # If neither key was found, append at the end
+    if not inserted:
+        for uk, uv in updates.items():
             result[uk] = uv
+
     return result
 
 
-def main():
-    apps_dir = "data/apps"
+def process_app(
+    app_id: str,
+    app_data: dict,
+    apps_dir: Path,
+    token: str | None,
+    dry_run: bool = False,
+) -> tuple[str, bool, str | None]:
+    """
+    Process a single app.
+    Returns (app_id, success, error_message).
+    """
+    repo = app_data.get("repo")
+    asset_suffix = app_data.get("asset_suffix")
+    name = app_data.get("name", app_id)
+    version_regex = app_data.get("version_regex")
+    title_version_regex = app_data.get("title_version_regex")
 
-    if not os.path.exists(apps_dir):
+    if not repo or not asset_suffix:
+        return (app_id, False, "missing repo or asset_suffix")
+
+    release = fetch_latest_release(repo, token)
+    if not release:
+        return (app_id, False, "no release found")
+
+    asset = find_appimage_asset(release, asset_suffix)
+    if not asset:
+        return (app_id, False, f"no asset matching suffix '{asset_suffix}'")
+
+    # Extract version
+    tag_name = release["tag_name"]
+    release_title = release.get("name") or ""
+    version, version_source = extract_version(
+        tag_name, version_regex, release_title, title_version_regex
+    )
+
+    # Detect arch
+    arch = detect_arch(asset["name"])
+
+    # Find sha256
+    sha256 = find_sha256(asset, release.get("assets", []))
+
+    # Find zsync_url
+    zsync_url = find_zsync_url(asset["name"], release.get("assets", []))
+
+    # Build updates
+    updates = {
+        "version": version,
+        "download_url": asset["browser_download_url"],
+        "asset_name": asset["name"],
+        "size": asset.get("size"),
+        "sha256": sha256,
+        "zsync_url": zsync_url,
+        "arch": arch,
+        "published_at": release["published_at"],
+        "version_changed_at": compute_version_changed_at(
+            app_data, version, sha256, release["published_at"]
+        ),
+    }
+
+    # Remove None values (except we keep them to show they were checked)
+    updates = {k: v for k, v in updates.items() if v is not None}
+
+    # Insert generated fields in correct position
+    updated = insert_generated_fields(app_data, updates)
+
+    if not dry_run:
+        write_json(apps_dir / f"{app_id}.json", updated)
+
+    return (app_id, True, None)
+
+
+def print_warning(message: str) -> None:
+    """Print warning, using GitHub Actions annotation format if in CI."""
+    if os.environ.get("GITHUB_ACTIONS"):
+        print(f"::warning::{message}")
+    else:
+        print(f"{YELLOW}[WARN]{RESET} {message}", file=sys.stderr)
+
+
+def print_error(message: str) -> None:
+    """Print error, using GitHub Actions annotation format if in CI."""
+    if os.environ.get("GITHUB_ACTIONS"):
+        print(f"::error::{message}")
+    else:
+        print(f"{RED}[ERROR]{RESET} {message}", file=sys.stderr)
+
+
+def main():
+    ap = argparse.ArgumentParser(description="Fetch latest AppImage releases from GitHub")
+    ap.add_argument("ids", nargs="*", help="Specific app IDs to process (default: all)")
+    ap.add_argument("--apps-dir", default="data/apps", help="Directory with app JSON files")
+    ap.add_argument("--dry-run", action="store_true", help="Don't write changes")
+    ap.add_argument("--workers", type=int, default=6, help="Parallel workers (default: 6)")
+    ap.add_argument("--max-failure-rate", type=float, default=0.25, help="Max failure rate (default: 0.25)")
+    args = ap.parse_args()
+
+    apps_dir = Path(args.apps_dir)
+    if not apps_dir.exists():
         print(f"Apps directory '{apps_dir}' not found", file=sys.stderr)
         sys.exit(1)
 
-    json_files = sorted(f for f in os.listdir(apps_dir) if f.endswith(".json"))
-
+    json_files = sorted(f for f in apps_dir.glob("*.json"))
     if not json_files:
         print("No JSON files found in apps/", file=sys.stderr)
         sys.exit(1)
 
-    for filename in json_files:
-        path = os.path.join(apps_dir, filename)
-        with open(path, "r") as f:
-            app = json.load(f)
+    # Filter by IDs if provided
+    if args.ids:
+        id_set = set(args.ids)
+        json_files = [f for f in json_files if f.stem in id_set]
+        if not json_files:
+            print(f"No matching apps for IDs: {args.ids}", file=sys.stderr)
+            sys.exit(1)
 
-        repo = app.get("repo")
-        asset_suffix = app.get("asset_suffix")
-        name = app.get("name", filename)
+    token = get_github_token()
+    if not token:
+        print_warning("No GITHUB_TOKEN or GH_TOKEN set; unauthenticated requests limited to 60/hour")
 
-        if not repo or not asset_suffix:
-            print(f"  Skipping {filename}: missing repo or asset_suffix", file=sys.stderr)
-            continue
+    total = len(json_files)
+    success_count = 0
+    failure_count = 0
+    rate_limited = False
 
-        print(f"Fetching {name} ({repo})... ", end="", file=sys.stderr, flush=True)
+    print(f"Processing {total} app(s) with {args.workers} worker(s)...", file=sys.stderr)
 
-        release = fetch_latest_release(repo)
-        if not release:
-            print(f"{RED}[FAIL]{RESET} - No release found", file=sys.stderr)
-            continue
+    with ThreadPoolExecutor(max_workers=args.workers) as executor:
+        futures = {}
+        for json_file in json_files:
+            app_id = json_file.stem
+            with open(json_file, "r") as f:
+                app_data = json.load(f)
+            future = executor.submit(process_app, app_id, app_data, apps_dir, token, args.dry_run)
+            futures[future] = app_id
 
-        asset = find_appimage_asset(release, asset_suffix)
-        if not asset:
-            print(f"{RED}[FAIL]{RESET} - No asset matching suffix '{asset_suffix}'", file=sys.stderr)
-            continue
+        for future in as_completed(futures):
+            app_id = futures[future]
+            try:
+                _, success, error = future.result()
+                if success:
+                    success_count += 1
+                    print(f"  {app_id}: {GREEN}[OK]{RESET}", file=sys.stderr)
+                else:
+                    failure_count += 1
+                    print(f"  {app_id}: {RED}[FAIL]{RESET} - {error}", file=sys.stderr)
+            except RateLimitExceeded as e:
+                rate_limited = True
+                failure_count += 1
+                reset_msg = f" (resets at {time.ctime(e.reset_time)})" if e.reset_time else ""
+                print(f"  {app_id}: {RED}[RATE LIMIT]{RESET}{reset_msg}", file=sys.stderr)
+                # Cancel remaining futures
+                for f in futures:
+                    f.cancel()
+                break
+            except Exception as e:
+                failure_count += 1
+                print(f"  {app_id}: {RED}[ERROR]{RESET} - {e}", file=sys.stderr)
 
-        version = extract_version(release["tag_name"], app.get("version_regex"))
+    # Summary
+    print(file=sys.stderr)
+    print(f"{BOLD}Summary:{RESET} {GREEN}{success_count} OK{RESET}, {RED}{failure_count} FAIL{RESET}", file=sys.stderr)
 
-        updates = {
-            "version": version,
-            "download_url": asset["browser_download_url"],
-            "asset_name": asset["name"],
-            "published_at": release["published_at"],
-        }
+    if rate_limited:
+        print_error("GitHub API rate limit exceeded")
+        sys.exit(2)
 
-        updated = insert_after_version_regex(app, updates)
+    if total > 0 and (failure_count / total) > args.max_failure_rate:
+        print_error(f"Failure rate {failure_count}/{total} exceeds threshold {args.max_failure_rate}")
+        sys.exit(1)
 
-        with open(path, "w") as f:
-            json.dump(updated, f, indent=2, ensure_ascii=False)
-            f.write("\n")
+    if failure_count > 0:
+        sys.exit(1)
 
-        print(f"{version} {GREEN}[OK]{RESET}", file=sys.stderr)
+    sys.exit(0)
 
 
 if __name__ == "__main__":

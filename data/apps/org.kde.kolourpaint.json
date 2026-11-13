@@ -7,10 +7,15 @@
   "version": "26.08.2-1",
   "download_url": "https://github.com/pkgforge-dev/KolourPaint-AppImage/releases/download/26.08.2-1%402026-11-01_1793557809/KolourPaint-26.08.2-1-anylinux-x86_64.AppImage",
   "asset_name": "KolourPaint-26.08.2-1-anylinux-x86_64.AppImage",
+  "size": 59957601,
+  "sha256": "39107fd0d0fed261810eff3a087a6170499667f827addd9c9adf21e62366b5f1",
+  "zsync_url": "https://github.com/pkgforge-dev/KolourPaint-AppImage/releases/download/26.08.2-1%402026-11-01_1793557809/KolourPaint-26.08.2-1-anylinux-x86_64.AppImage.zsync",
+  "arch": "x86_64",
   "published_at": "2026-11-01T18:30:11Z",
+  "version_changed_at": "2026-11-01T18:30:11Z",
   "summary": "Paint Program",
-  "description": "KolourPaint is a simple painting program to quickly create raster images. It is useful as a\n      touch-up tool and for simple image editing tasks.\nFeatures:\nSupport for drawing various shapes - lines, rectangles, rounded rectangles, ovals and polygons\nCurves, lines and text\nColor picker\nSelections\nRotation, monochrome and other advanced effects",
-  "developer": null,
+  "description": "KolourPaint is a simple painting program to quickly create raster images. It is useful as a touch-up tool and for simple image editing tasks. Features: Support for drawing various shapes - lines, rectangles, rounded rectangles, ovals and polygons Curves, lines and text Color picker Selections Rotation, monochrome and other advanced effects",
+  "developer": "KDE",
   "license": "BSD-2-Clause and LGPL-2.0+ and GFDL-1.2",
   "categories": [
     "Graphics",
@@ -35,26 +40,26 @@
       "images": [
         {
           "type": "source",
-          "width": "972",
-          "height": "748",
+          "width": 972,
+          "height": 748,
           "url": "https://dl.flathub.org/media/org/kde/kolourpaint.desktop/da47f75a893d15af979b2142fe1300df/screenshots/image-1_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "752",
-          "height": "578",
+          "width": 752,
+          "height": 578,
           "url": "https://dl.flathub.org/media/org/kde/kolourpaint.desktop/da47f75a893d15af979b2142fe1300df/screenshots/image-1_752x578@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "480",
+          "width": 624,
+          "height": 480,
           "url": "https://dl.flathub.org/media/org/kde/kolourpaint.desktop/da47f75a893d15af979b2142fe1300df/screenshots/image-1_624x480@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "172",
+          "width": 224,
+          "height": 172,
           "url": "https://dl.flathub.org/media/org/kde/kolourpaint.desktop/da47f75a893d15af979b2142fe1300df/screenshots/image-1_224x172@1.png"
         }
       ]

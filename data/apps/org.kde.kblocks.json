@@ -7,10 +7,15 @@
   "version": "26.08.2-1",
   "download_url": "https://github.com/pkgforge-dev/KBlocks-AppImage/releases/download/26.08.2-1%402026-11-01_1793557811/KBlocks-26.08.2-1-anylinux-x86_64.AppImage",
   "asset_name": "KBlocks-26.08.2-1-anylinux-x86_64.AppImage",
+  "size": 56593844,
+  "sha256": "ff4d50c0a9e978f7540cd2a06bac26a82dedc72a2fa4b37b8da1371a7dfd6b42",
+  "zsync_url": "https://github.com/pkgforge-dev/KBlocks-AppImage/releases/download/26.08.2-1%402026-11-01_1793557811/KBlocks-26.08.2-1-anylinux-x86_64.AppImage.zsync",
+  "arch": "x86_64",
   "published_at": "2026-11-01T18:30:13Z",
+  "version_changed_at": "2026-11-01T18:30:13Z",
   "summary": "Falling Blocks Game",
-  "description": "KBlocks is the classic falling blocks game. The idea is to stack the falling blocks to create\n      horizontal lines without any gaps. When a line is completed it is removed, and more space is available\n      in the play area. When there is not enough space for blocks to fall, the game is over.",
-  "developer": null,
+  "description": "KBlocks is the classic falling blocks game. The idea is to stack the falling blocks to create horizontal lines without any gaps. When a line is completed it is removed, and more space is available in the play area. When there is not enough space for blocks to fall, the game is over.",
+  "developer": "KDE",
   "license": "GPL-2.0+",
   "categories": [
     "Game",
@@ -34,26 +39,26 @@
       "images": [
         {
           "type": "source",
-          "width": "909",
-          "height": "680",
+          "width": 909,
+          "height": 680,
           "url": "https://dl.flathub.org/media/org/kde/kblocks/161140a14265f6fefaa489c2790da30e/screenshots/image-1_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "752",
-          "height": "562",
+          "width": 752,
+          "height": 562,
           "url": "https://dl.flathub.org/media/org/kde/kblocks/161140a14265f6fefaa489c2790da30e/screenshots/image-1_752x562@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "466",
+          "width": 624,
+          "height": 466,
           "url": "https://dl.flathub.org/media/org/kde/kblocks/161140a14265f6fefaa489c2790da30e/screenshots/image-1_624x466@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "167",
+          "width": 224,
+          "height": 167,
           "url": "https://dl.flathub.org/media/org/kde/kblocks/161140a14265f6fefaa489c2790da30e/screenshots/image-1_224x167@1.png"
         }
       ]

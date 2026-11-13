@@ -7,10 +7,15 @@
   "version": "26.08.2-1",
   "download_url": "https://github.com/pkgforge-dev/KMahjongg-AppImage/releases/download/26.08.2-1%402026-11-01_1793557747/KMahjongg-26.08.2-1-anylinux-x86_64.AppImage",
   "asset_name": "KMahjongg-26.08.2-1-anylinux-x86_64.AppImage",
+  "size": 56472411,
+  "sha256": "62db8b7e33ac3c269d9b9bfd84a1475bbbaef9763a0b0fe432e5e6027bf77dfc",
+  "zsync_url": "https://github.com/pkgforge-dev/KMahjongg-AppImage/releases/download/26.08.2-1%402026-11-01_1793557747/KMahjongg-26.08.2-1-anylinux-x86_64.AppImage.zsync",
+  "arch": "x86_64",
   "published_at": "2026-11-01T18:29:09Z",
+  "version_changed_at": "2026-11-01T18:29:09Z",
   "summary": "Mahjong Solitaire",
-  "description": "KMahjongg is a fun board game created after the famous oriental game of Mahjong (from Chinese\n      麻將).",
-  "developer": null,
+  "description": "KMahjongg is a fun board game created after the famous oriental game of Mahjong (from Chinese 麻將).",
+  "developer": "KDE",
   "license": "GPL-2.0+",
   "categories": [
     "Game",
@@ -34,26 +39,26 @@
       "images": [
         {
           "type": "source",
-          "width": "990",
-          "height": "517",
+          "width": 990,
+          "height": 517,
           "url": "https://dl.flathub.org/media/org/kde/kmahjongg/6e594bece1a8526c9703e8cb73b27783/screenshots/image-1_orig.png"
         },
         {
           "type": "thumbnail",
-          "width": "752",
-          "height": "392",
+          "width": 752,
+          "height": 392,
           "url": "https://dl.flathub.org/media/org/kde/kmahjongg/6e594bece1a8526c9703e8cb73b27783/screenshots/image-1_752x392@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "624",
-          "height": "325",
+          "width": 624,
+          "height": 325,
           "url": "https://dl.flathub.org/media/org/kde/kmahjongg/6e594bece1a8526c9703e8cb73b27783/screenshots/image-1_624x325@1.png"
         },
         {
           "type": "thumbnail",
-          "width": "224",
-          "height": "116",
+          "width": 224,
+          "height": 116,
           "url": "https://dl.flathub.org/media/org/kde/kmahjongg/6e594bece1a8526c9703e8cb73b27783/screenshots/image-1_224x116@1.png"
         }
       ]

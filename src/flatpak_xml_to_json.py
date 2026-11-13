@@ -9,6 +9,16 @@ import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+# Import shared helpers
+sys.path.insert(0, str(Path(__file__).parent))
+from common import (
+    normalize_description,
+    normalize_keywords,
+    normalize_categories,
+    normalize_screenshots,
+    write_json,
+)
+
 XML_LANG = "{http://www.w3.org/XML/1998/namespace}lang"
 
 
@@ -18,9 +28,12 @@ def text_of(elem):
         return None
     parts = []
     for node in elem.iter():
-        if node.tag in ("p", "li") and node.text or node is elem and node.text and node.text.strip():
+        if node.tag in ("p", "li") and node.text:
             parts.append(node.text.strip())
-    return "\n".join(parts) if parts else None
+        elif node is elem and node.text and node.text.strip():
+            parts.append(node.text.strip())
+    # Join paragraphs with double newline for proper paragraph separation
+    return "\n\n".join(parts) if parts else None
 
 
 def localized(parent, tag):
@@ -36,6 +49,31 @@ def localized_description(parent):
         if not el.attrib.get(XML_LANG):
             return text_of(el)
     return None
+
+
+def parse_keywords(comp):
+    """Extract keywords only from <keywords> blocks without xml:lang."""
+    keywords = []
+    for kw_block in comp.findall("keywords"):
+        if kw_block.attrib.get(XML_LANG):
+            continue
+        for kw in kw_block.findall("keyword"):
+            if kw.text and kw.text.strip():
+                keywords.append(kw.text.strip())
+    return keywords
+
+
+def parse_developer(comp):
+    """Extract developer from <developer><name> (untranslated) with fallback to <developer_name>."""
+    # Try <developer><name> without xml:lang
+    for dev in comp.findall("developer"):
+        if dev.attrib.get(XML_LANG):
+            continue
+        name_el = dev.find("name")
+        if name_el is not None and name_el.text and name_el.text.strip():
+            return name_el.text.strip()
+    # Fallback to developer_name
+    return localized(comp, "developer_name")
 
 
 def parse_component(comp):
@@ -61,26 +99,37 @@ def parse_component(comp):
         })
 
     urls = {u.attrib.get("type", "homepage"): (u.text or "").strip()
-            for u in comp.findall("url")}
+            for u in comp.findall("urls/url")}
 
     icon = None
     for ic in comp.findall("icon"):
         if ic.attrib.get("type") in ("cached", "remote") or icon is None:
             icon = {"type": ic.attrib.get("type"), "name": (ic.text or "").strip()}
 
+    # Parse raw data
+    raw_keywords = parse_keywords(comp)
+    raw_categories = [c.text for c in comp.findall("categories/category") if c.text]
+    raw_description = localized_description(comp)
+    raw_screenshots = screenshots
+
+    # Normalize using shared helpers
+    norm_keywords = normalize_keywords(raw_keywords)
+    norm_categories = normalize_categories(raw_categories)
+    norm_description = normalize_description(raw_description)
+    norm_screenshots = normalize_screenshots(raw_screenshots)
+
     return {
         "id": app_id,
         "name": localized(comp, "name"),
         "summary": localized(comp, "summary"),
-        "description": localized_description(comp),
-        "developer": localized(comp, "developer_name"),
+        "description": norm_description,
+        "developer": parse_developer(comp),
         "license": (comp.findtext("project_license") or "").strip() or None,
-        "categories": [c.text for c in comp.findall("categories/category") if c.text],
-        "keywords": [k.text for k in comp.findall("keywords/keyword")
-                     if k.text and not k.attrib.get(XML_LANG)],
+        "categories": norm_categories,
+        "keywords": norm_keywords,
         "urls": urls,
         "icon": icon,
-        "screenshots": screenshots,
+        "screenshots": norm_screenshots,
     }
 
 
@@ -121,12 +170,10 @@ def main():
         app_id = data["id"]
         target = out / f"{app_id}.json"
 
-        new_text = json.dumps(data, indent=2, ensure_ascii=False) + "\n"
-        if target.exists() and target.read_text(encoding="utf-8") == new_text:
-            skipped += 1
-        else:
-            target.write_text(new_text, encoding="utf-8")
+        if write_json(target, data):
             written += 1
+        else:
+            skipped += 1
 
         icon_file = find_icon(args.icons, data["icon"])
         if icon_file:
