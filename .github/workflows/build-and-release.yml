@@ -5,8 +5,12 @@ on:
     - cron: '0 5 * * 5'  # Every Friday at 05:00 UTC
   workflow_dispatch:  # Allow manual trigger
 
+concurrency:
+  group: release
+  cancel-in-progress: false
+
 permissions:
-  contents: write  # Required for creating releases
+  contents: write  # Required for creating releases and committing data
 
 jobs:
   build-and-release:
@@ -14,11 +18,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version: '3.11'
 
       - name: Install flatpak
         run: |
@@ -42,8 +48,21 @@ jobs:
           python3 src/flatpak_sync.py --mine data/apps --flatpak "data/all"
 
       - name: Get latest AppImages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          python3 src/get_latest_appimages.py
+          python3 src/get_latest_appimages.py --last-ok-report data/last_ok_report.json --ci-summary ci_summary.md
+
+      - name: Upload CI summary
+        if: always()
+        run: |
+          if [ -f ci_summary.md ]; then
+            cat ci_summary.md >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Validate (lint, tests, build check)
+        run: |
+          ./check
 
       - name: Build database
         run: |
@@ -52,6 +71,18 @@ jobs:
       - name: Pack icons
         run: |
           python3 src/pack-icons.py
+
+      - name: Commit data changes if any
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet data/apps/ data/icons/ data/last_ok_report.json; then
+            git add data/apps/ data/icons/ data/last_ok_report.json
+            git commit -m "chore: weekly data refresh"
+            git push
+          else
+            echo "No data changes to commit"
+          fi
 
       - name: Create release
         uses: softprops/action-gh-release@v2

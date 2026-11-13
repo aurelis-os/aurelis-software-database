@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Shared pure helpers for the Aurelis software database pipeline.
 """
@@ -7,6 +6,7 @@ import json
 import os
 import re
 import tarfile
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -59,7 +59,7 @@ def normalize_description(text: str | None) -> str | None:
     if not text:
         return None
 
-    # Split into paragraphs (double newline or single newline with indentation)
+    # Split into paragraphs (double newline)
     paragraphs = re.split(r"\n\s*\n", text.strip())
     normalized = []
 
@@ -70,7 +70,7 @@ def normalize_description(text: str | None) -> str | None:
         # Collapse multiple spaces
         joined = re.sub(r"\s+", " ", joined)
 
-        # Drop Flathub boilerplate
+        # Drop Flathub boilerplate paragraphs (but not the whole description)
         if joined.lower().startswith("this flatpak is"):
             continue
         if joined.lower().startswith("this application is"):
@@ -189,17 +189,17 @@ def find_sha256(asset: dict, all_assets: list[dict]) -> str | None:
     for sibling in all_assets:
         sname = sibling["name"]
         if sname == f"{asset_name}.sha256" or sname == f"{asset_name}.sha256sum" or sname == f"{asset_name}.sha256.txt":
-            # Fetch and parse the checksum file
-            # For now, we'll need to download it - but in the actual implementation
-            # this would be done by the fetch script. Here we just return None
-            # and let the caller handle downloading.
-            pass
+            # The sibling asset contains the checksum - we need to download and parse it
+            # This is handled by the caller (get_latest_appimages.py) which downloads the file
+            # For now, we return a special marker to indicate a sibling checksum file exists
+            return "SIBLING_CHECKSUM"
 
     # 3. Combined checksum files
     for sibling in all_assets:
         sname = sibling["name"]
         if sname in ("SHA256SUMS", "SHA256SUMS.txt", "checksums.txt", "checksums.sha256"):
-            pass
+            # Combined checksum file exists - caller will download and parse
+            return "COMBINED_CHECKSUM"
 
     return None
 
@@ -269,7 +269,7 @@ def compute_version_changed_at(
     return old_changed_at or new_published_at
 
 
-def reproducible_tar_add(tar: tarfile.TarInfo, path: Path, arcname: str, mtime: int = 0) -> None:
+def reproducible_tar_add(tar: tarfile.TarFile, path: Path, arcname: str, mtime: int = 0) -> None:
     """Add a file to tar with reproducible metadata."""
     tarinfo = tar.gettarinfo(path, arcname)
     tarinfo.mtime = mtime
@@ -287,10 +287,19 @@ def create_reproducible_tar_gz(output_path: Path, files: list[tuple[Path, str]],
     Create a reproducible tar.gz archive.
     files: list of (source_path, archive_name)
     """
-    with tarfile.open(output_path, "w:gz") as tar:
+    import gzip
+    import io
+    # First create a reproducible tar in memory
+    tar_buffer = io.BytesIO()
+    with tarfile.open(fileobj=tar_buffer, mode="w") as tar:
         # Sort by archive name for determinism
         for src, arcname in sorted(files, key=lambda x: x[1]):
             reproducible_tar_add(tar, src, arcname, mtime)
+    
+    # Then gzip with fixed mtime
+    tar_buffer.seek(0)
+    with open(output_path, "wb") as f, gzip.GzipFile(filename="", mode="wb", mtime=mtime, fileobj=f) as gz:
+        gz.write(tar_buffer.read())
 
 
 def get_source_date_epoch() -> int | None:
@@ -306,9 +315,197 @@ def get_source_date_epoch() -> int | None:
 
 def format_generated_at(epoch: int | None = None) -> str:
     """Format generated_at timestamp, using SOURCE_DATE_EPOCH if available."""
-    from datetime import datetime, timezone
+    from datetime import datetime
     if epoch is None:
         epoch = get_source_date_epoch()
     if epoch is not None:
-        return datetime.fromtimestamp(epoch, tz=timezone.utc).isoformat().replace("+00:00", "Z")
-    return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+        return datetime.fromtimestamp(epoch, tz=UTC).isoformat().replace("+00:00", "Z")
+    return datetime.now(UTC).isoformat().replace("+00:00", "Z")
+
+
+# Stale/broken detection helpers
+
+def load_last_ok_report(report_path: Path) -> dict:
+    """Load the last_ok_at report file."""
+    if report_path.exists():
+        try:
+            return json.loads(report_path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            return {}
+    return {}
+
+
+def save_last_ok_report(report_path: Path, report: dict) -> bool:
+    """Save the last_ok_at report file."""
+    return write_json(report_path, report)
+
+
+def update_last_ok(report: dict, app_id: str, success: bool, published_at: str | None = None) -> None:
+    """
+    Update last_ok_at for an app.
+    If success, set last_ok_at to the current fetch time (not the release date).
+    If failure, leave last_ok_at unchanged.
+    """
+    if success:
+        # Use the fetch time (now) as last_ok_at, not the release's published_at
+        # This ensures stale detection tracks fetch success, not release age
+        report[app_id] = datetime.now(UTC).isoformat().replace("+00:00", "Z")
+    # On failure, don't update last_ok_at - it stays at the last successful fetch
+
+
+def check_stale_broken(report: dict, apps_dir: Path, max_failure_weeks: int = 3, max_release_age_months: int = 18) -> dict:
+    """
+    Check for stale/broken apps.
+    Returns dict with 'stale' (failed 3+ weeks) and 'old_release' (release > 18 months) lists.
+    """
+    now = datetime.now(UTC)
+    
+    stale = []  # Apps that failed 3+ weeks in a row
+    old_release = []  # Apps with release older than 18 months
+    
+    for json_file in sorted(apps_dir.glob("*.json")):
+        app_id = json_file.stem
+        try:
+            app = json.loads(json_file.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            continue
+        
+        last_ok = report.get(app_id)
+        published_at = app.get("published_at")
+        
+        # Check if app has failed for 3+ weeks (no last_ok or last_ok > 3 weeks ago)
+        if last_ok:
+            try:
+                last_ok_dt = datetime.fromisoformat(last_ok)
+                if (now - last_ok_dt) > timedelta(weeks=max_failure_weeks):
+                    stale.append({
+                        "id": app_id,
+                        "last_ok_at": last_ok,
+                        "weeks_since_ok": (now - last_ok_dt).days // 7
+                    })
+            except (ValueError, TypeError):
+                # Invalid timestamp, treat as stale
+                stale.append({
+                    "id": app_id,
+                    "last_ok_at": last_ok,
+                    "weeks_since_ok": "unknown"
+                })
+        else:
+            # Never succeeded
+            stale.append({
+                "id": app_id,
+                "last_ok_at": None,
+                "weeks_since_ok": "never"
+            })
+        
+        # Check if latest release is older than 18 months
+        if published_at:
+            try:
+                pub_dt = datetime.fromisoformat(published_at)
+                if (now - pub_dt) > timedelta(days=max_release_age_months * 30):
+                    old_release.append({
+                        "id": app_id,
+                        "published_at": published_at,
+                        "months_since_release": (now - pub_dt).days // 30
+                    })
+            except (ValueError, TypeError):
+                pass
+    
+    return {
+        "stale": stale,
+        "old_release": old_release
+    }
+
+
+def generate_ci_summary(
+    updated_apps: list[str],
+    failed_apps: list[tuple[str, str]],
+    warnings: list[str],
+    version_changes: list[tuple[str, str, str]],  # (app_id, old_version, new_version)
+    stale_broken: dict | None = None
+) -> str:
+    """Generate a markdown summary for CI job summary."""
+    now = datetime.now(UTC).isoformat().replace("+00:00", "Z")
+    
+    lines = [
+        "# Aurelis Software Database - Build Summary",
+        "",
+        f"**Generated at:** {now}",
+        "",
+        f"## Updated Apps ({len(updated_apps)})",
+        ""
+    ]
+    
+    if updated_apps:
+        for app_id in sorted(updated_apps):
+            lines.append(f"- `{app_id}`")
+    else:
+        lines.append("_No apps updated_")
+    
+    lines.extend([
+        "",
+        f"## Failed Apps ({len(failed_apps)})",
+        ""
+    ])
+    
+    if failed_apps:
+        for app_id, error in failed_apps:
+            lines.append(f"- `{app_id}`: {error}")
+    else:
+        lines.append("_No failures_")
+    
+    lines.extend([
+        "",
+        f"## Version Changes ({len(version_changes)})",
+        ""
+    ])
+    
+    if version_changes:
+        for app_id, old_ver, new_ver in version_changes:
+            lines.append(f"- `{app_id}`: `{old_ver}` → `{new_ver}`")
+    else:
+        lines.append("_No version changes_")
+    
+    lines.extend([
+        "",
+        f"## Warnings ({len(warnings)})",
+        ""
+    ])
+    
+    if warnings:
+        for warning in warnings:
+            lines.append(f"- {warning}")
+    else:
+        lines.append("_No warnings_")
+    
+    if stale_broken:
+        lines.extend([
+            "",
+            "## Stale/Broken Detection",
+            ""
+        ])
+        
+        stale = stale_broken.get("stale", [])
+        old_release = stale_broken.get("old_release", [])
+        
+        lines.append(f"### Stale Apps (failed ≥ 3 weeks) ({len(stale)})")
+        lines.append("")
+        if stale:
+            for item in stale:
+                last_ok = item.get("last_ok_at") or "never"
+                weeks = item.get("weeks_since_ok", "?")
+                lines.append(f"- `{item['id']}`: last OK {last_ok} ({weeks} weeks ago)")
+        else:
+            lines.append("_None_")
+        
+        lines.append("")
+        lines.append(f"### Old Releases (> 18 months) ({len(old_release)})")
+        lines.append("")
+        if old_release:
+            for item in old_release:
+                months = item.get("months_since_release", "?")
+                lines.append(f"- `{item['id']}`: released {item['published_at']} ({months} months ago)")
+        else:
+            lines.append("_None_")
+    
+    return "\n".join(lines)

@@ -14,9 +14,9 @@ from pathlib import Path
 # Import shared helpers
 sys.path.insert(0, str(Path(__file__).parent))
 from common import (
+    normalize_categories,
     normalize_description,
     normalize_keywords,
-    normalize_categories,
     normalize_screenshots,
     write_json,
 )
@@ -50,9 +50,7 @@ def is_empty_value(value):
     """Check if a value is considered empty (null, [], {}, '')."""
     if value is None:
         return True
-    if isinstance(value, (list, dict, str)) and len(value) == 0:
-        return True
-    return False
+    return isinstance(value, (list, dict, str)) and len(value) == 0
 
 
 def main():

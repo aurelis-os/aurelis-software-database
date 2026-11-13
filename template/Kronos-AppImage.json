@@ -1,6 +1,0 @@
-{
-  "name": "Kronos (PkgForge)",
-  "repo": "pkgforge-dev/Kronos-AppImage",
-  "asset_suffix": "-anylinux-x86_64.AppImage",
-  "version_regex": "([0-9.]+-[0-9]+)@"
-}

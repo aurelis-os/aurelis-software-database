@@ -1,0 +1,62 @@
+{
+  "id": "ai.lmstudio.lm-studio",
+  "repo": "lmstudio-ai/lmstudio",
+  "asset_suffix": "-linux-x64.AppImage",
+  "version_regex": "v([0-9.]+)",
+  "keywords": [
+    "developer",
+    "llm"
+  ],
+  "screenshots": [
+    {
+      "default": true,
+      "caption": "Main window",
+      "images": [
+        {
+          "type": "source",
+          "width": 2945,
+          "height": 1790,
+          "url": "https://dl.flathub.org/media/ai/lmstudio/lm-studio/0a6d57ba4815cecd72f6b8afdb7ccffb/screenshots/image-1_orig.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": 1248,
+          "height": 758,
+          "url": "https://dl.flathub.org/media/ai/lmstudio/lm-studio/0a6d57ba4815cecd72f6b8afdb7ccffb/screenshots/image-1_1248x758@1.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": 752,
+          "height": 457,
+          "url": "https://dl.flathub.org/media/ai/lmstudio/lm-studio/0a6d57ba4815cecd72f6b8afdb7ccffb/screenshots/image-1_752x457@1.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": 624,
+          "height": 379,
+          "url": "https://dl.flathub.org/media/ai/lmstudio/lm-studio/0a6d57ba4815cecd72f6b8afdb7ccffb/screenshots/image-1_624x379@1.png"
+        },
+        {
+          "type": "thumbnail",
+          "width": 224,
+          "height": 136,
+          "url": "https://dl.flathub.org/media/ai/lmstudio/lm-studio/0a6d57ba4815cecd72f6b8afdb7ccffb/screenshots/image-1_224x136@1.png"
+        }
+      ]
+    }
+  ],
+  "categories": [
+    "Utility",
+    "Development",
+    "Chat"
+  ],
+  "license": "LicenseRef-proprietary=https://lmstudio.ai/app-terms",
+  "description": "LM Studio is a desktop app for running large language models (LLMs) locally on your own computer. features Run Local LLMs Offline — Execute open-weight models entirely on your own device without cloud dependency. Cross-Platform Support — Available on Windows, macOS, and Linux. Model Discovery & Download — Browse and download GGUF/MLX models directly from Hugging Face. Built-in Chat Interface — Interact with local models through a clean ChatGPT-like UI. OpenAI-Compatible API Server — Serve local models via OpenAI-style REST endpoints for app integration. Document Chat (RAG) — Chat with local documents privately and offline. Model Management — Organize models, prompts, presets, and configurations in one place. Developer Tooling — Includes CLI, Python SDK, TypeScript SDK, and REST Headless Mode — Run LM Studio without GUI for servers or CI environments. MCP Integration — Connect MCP servers and external AI workflows. Privacy-First Design — Prompts and conversations stay on the local machine. Hardware-Aware Optimization — GPU offloading and memory controls for better performance on limited hardware. Multi-Model Support — Supports Llama, Qwen, Mistral, Gemma, Phi, DeepSeek, and more. Local Network Serving — Expose local models across devices on the same network.",
+  "developer": "Element Labs, Inc.",
+  "summary": "Run AI models, locally and privately",
+  "name": "LM Studio",
+  "icon": {
+    "type": "cached",
+    "name": "ai.lmstudio.lm-studio.png"
+  }
+}

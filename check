@@ -28,3 +28,11 @@ else
 fi
 
 echo "Lint checks passed!"
+
+echo "Running tests..."
+python3 -m unittest discover -s tests
+
+echo "Running build-database validation..."
+src/build-database.py --check
+
+echo "All checks passed!"

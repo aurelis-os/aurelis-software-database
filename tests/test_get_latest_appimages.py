@@ -1,19 +1,15 @@
-#!/usr/bin/env python3
 """Unit tests for get_latest_appimages.py."""
 
-import json
-import tempfile
+import sys
 import unittest
 from pathlib import Path
-import sys
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
-from get_latest_appimages import (
-    insert_generated_fields,
-    find_appimage_asset,
-    process_app,
-)
 from common import detect_arch, find_sha256, find_zsync_url
+from get_latest_appimages import (
+    find_appimage_asset,
+    insert_generated_fields,
+)
 
 
 class TestInsertGeneratedFields(unittest.TestCase):

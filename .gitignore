@@ -1,3 +1,4 @@
 data/all/**
+data/output/**
+ci_summary.md
 .directory
-

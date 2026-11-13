@@ -3,7 +3,6 @@
 
 import argparse
 import gzip
-import json
 import shutil
 import sys
 import xml.etree.ElementTree as ET
@@ -12,9 +11,9 @@ from pathlib import Path
 # Import shared helpers
 sys.path.insert(0, str(Path(__file__).parent))
 from common import (
+    normalize_categories,
     normalize_description,
     normalize_keywords,
-    normalize_categories,
     normalize_screenshots,
     write_json,
 )
@@ -28,9 +27,7 @@ def text_of(elem):
         return None
     parts = []
     for node in elem.iter():
-        if node.tag in ("p", "li") and node.text:
-            parts.append(node.text.strip())
-        elif node is elem and node.text and node.text.strip():
+        if node.tag in ("p", "li") and node.text or node is elem and node.text and node.text.strip():
             parts.append(node.text.strip())
     # Join paragraphs with double newline for proper paragraph separation
     return "\n\n".join(parts) if parts else None
@@ -44,9 +41,24 @@ def localized(parent, tag):
     return None
 
 
+def localized_for_lang(parent, tag, lang):
+    """Return the text of a child tag for a specific language."""
+    for el in parent.findall(tag):
+        if el.attrib.get(XML_LANG) == lang:
+            return (el.text or "").strip() or None
+    return None
+
+
 def localized_description(parent):
     for el in parent.findall("description"):
         if not el.attrib.get(XML_LANG):
+            return text_of(el)
+    return None
+
+
+def localized_description_for_lang(parent, lang):
+    for el in parent.findall("description"):
+        if el.attrib.get(XML_LANG) == lang:
             return text_of(el)
     return None
 
@@ -56,6 +68,18 @@ def parse_keywords(comp):
     keywords = []
     for kw_block in comp.findall("keywords"):
         if kw_block.attrib.get(XML_LANG):
+            continue
+        for kw in kw_block.findall("keyword"):
+            if kw.text and kw.text.strip():
+                keywords.append(kw.text.strip())
+    return keywords
+
+
+def parse_keywords_for_lang(comp, lang):
+    """Extract keywords from <keywords> blocks with specific xml:lang."""
+    keywords = []
+    for kw_block in comp.findall("keywords"):
+        if kw_block.attrib.get(XML_LANG) != lang:
             continue
         for kw in kw_block.findall("keyword"):
             if kw.text and kw.text.strip():
@@ -76,7 +100,7 @@ def parse_developer(comp):
     return localized(comp, "developer_name")
 
 
-def parse_component(comp):
+def parse_component(comp, langs=None):
     app_id = (comp.findtext("id") or "").strip()
     if not app_id:
         return None
@@ -118,7 +142,8 @@ def parse_component(comp):
     norm_description = normalize_description(raw_description)
     norm_screenshots = normalize_screenshots(raw_screenshots)
 
-    return {
+    # Build base entry
+    entry = {
         "id": app_id,
         "name": localized(comp, "name"),
         "summary": localized(comp, "summary"),
@@ -131,6 +156,32 @@ def parse_component(comp):
         "icon": icon,
         "screenshots": norm_screenshots,
     }
+
+    # Add i18n data for requested languages
+    if langs:
+        i18n = {}
+        for lang in langs:
+            name = localized_for_lang(comp, "name", lang)
+            summary = localized_for_lang(comp, "summary", lang)
+            keywords = parse_keywords_for_lang(comp, lang)
+            description = localized_description_for_lang(comp, lang)
+            
+            # Only add if we have at least one translated field
+            if name or summary or keywords or description:
+                i18n[lang] = {}
+                if name:
+                    i18n[lang]["name"] = name
+                if summary:
+                    i18n[lang]["summary"] = summary
+                if keywords:
+                    i18n[lang]["keywords"] = normalize_keywords(keywords)
+                if description:
+                    i18n[lang]["description"] = normalize_description(description)
+        
+        if i18n:
+            entry["i18n"] = i18n
+
+    return entry
 
 
 def load_xml(path):
@@ -155,16 +206,20 @@ def main():
     ap.add_argument("--xml", required=True, help="appstream.xml or .xml.gz")
     ap.add_argument("--icons", help="folder with 128x128 icons")
     ap.add_argument("--out", default="Flatpak Info")
+    ap.add_argument("--langs", default="el", help="Comma-separated list of language codes to include (default: el)")
     args = ap.parse_args()
 
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
 
+    # Parse languages
+    langs = [lang.strip() for lang in args.langs.split(",") if lang.strip()]
+
     root = load_xml(args.xml)
     written = skipped = 0
 
     for comp in root.findall("component"):
-        data = parse_component(comp)
+        data = parse_component(comp, langs)
         if not data:
             continue
         app_id = data["id"]

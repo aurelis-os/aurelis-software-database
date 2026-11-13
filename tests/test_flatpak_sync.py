@@ -1,14 +1,11 @@
-#!/usr/bin/env python3
 """Unit tests for flatpak_sync.py."""
 
-import json
-import tempfile
+import sys
 import unittest
 from pathlib import Path
-import sys
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
-from flatpak_sync import normalize_flathub_data, is_empty_value, FLATHUB_FIELDS
+from flatpak_sync import FLATHUB_FIELDS, is_empty_value, normalize_flathub_data
 
 
 class TestNormalizeFlathubData(unittest.TestCase):

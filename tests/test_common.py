@@ -1,27 +1,24 @@
-#!/usr/bin/env python3
 """Unit tests for common.py helpers."""
 
-import json
+import sys
 import tempfile
 import unittest
 from pathlib import Path
-import sys
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 from common import (
-    write_json,
-    load_json,
+    compute_version_changed_at,
+    create_reproducible_tar_gz,
     detect_arch,
+    extract_version,
+    find_zsync_url,
+    format_generated_at,
+    load_json,
+    normalize_categories,
     normalize_description,
     normalize_keywords,
-    normalize_categories,
     normalize_screenshots,
-    extract_version,
-    compute_version_changed_at,
-    find_zsync_url,
-    reproducible_tar_add,
-    create_reproducible_tar_gz,
-    format_generated_at,
+    write_json,
 )
 
 

@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  lint:
+  lint-and-test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -16,7 +16,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version: '3.11'
 
       - name: Install ruff
         run: |
@@ -24,4 +24,12 @@ jobs:
 
       - name: Run lint checks
         run: |
-          ./check
+          ruff check src/
+
+      - name: Run unit tests
+        run: |
+          python3 -m unittest discover -s tests -v
+
+      - name: Validate database build
+        run: |
+          python3 src/build-database.py --check
