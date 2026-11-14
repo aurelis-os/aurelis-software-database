@@ -21,8 +21,8 @@ from common import (
 
 REQUIRED_CURATED = ["id", "name", "repo", "asset_suffix", "version_regex"]
 REQUIRED_GENERATED = ["version", "download_url", "asset_name", "published_at", "version_changed_at", "arch"]
-# arch is allowed to be null/empty for manual entry
-OPTIONAL_GENERATED = {"arch"}
+# arch key must exist but value may be null
+REQUIRED_GENERATED_TRUTHY = [f for f in REQUIRED_GENERATED if f != "arch"]
 SHA256_PATTERN = re.compile(r"^[0-9a-f]{64}$")
 TIMESTAMP_PATTERN = re.compile(r"^\d{4}-\d\d-\d\dT")
 
@@ -97,17 +97,18 @@ def validate_app(app: dict, apps_dir: Path, icons_dir: Path, seen_ids: set) -> l
             errors.append(f"title_version_regex invalid: {e}")
 
     # Required generated fields (but allow missing for unfetched apps)
-    missing_generated = [f for f in REQUIRED_GENERATED if f not in app or not app[f]]
+    missing_generated = [f for f in REQUIRED_GENERATED if f not in app]
     has_generated = len(missing_generated) < len(REQUIRED_GENERATED)
 
     if has_generated:
-        # If some generated fields present, validate all (except optional ones like arch)
-        for field in REQUIRED_GENERATED:
-            if field in OPTIONAL_GENERATED:
-                # Optional fields can be null/empty
-                continue
+        # If some generated fields present, validate all truthy ones
+        for field in REQUIRED_GENERATED_TRUTHY:
             if field not in app or not app[field]:
                 errors.append(f"Missing required generated field: {field}")
+
+        # arch key must exist (value may be null)
+        if "arch" not in app:
+            errors.append("Missing required generated field: arch")
 
         # Validate URLs
         errors.extend(validate_url(app.get("download_url", ""), "download_url"))
@@ -229,16 +230,21 @@ def main():
         apps.append(app)
 
     # Summary
-    # arch is optional, so check all required generated fields except arch
-    required_for_valid = [f for f in REQUIRED_GENERATED if f not in OPTIONAL_GENERATED]
-    skipped = sum(1 for a in apps if not all(f in a and a[f] for f in required_for_valid))
-    valid_apps = [a for a in apps if all(f in a and a[f] for f in required_for_valid)]
+    # arch key must exist but value may be null
+    skipped = sum(1 for a in apps if not all(f in a and a[f] for f in REQUIRED_GENERATED_TRUTHY))
+    valid_apps = [a for a in apps if all(f in a and a[f] for f in REQUIRED_GENERATED_TRUTHY)]
+
+    # Warn about apps with null arch
+    null_arch_ids = [a["id"] for a in valid_apps if not a.get("arch")]
 
     print(f"Total apps: {len(apps)}")
     print(f"Valid apps: {len(valid_apps)}")
     print(f"Skipped (no generated data): {skipped}")
     print(f"Warnings: {len(warnings)}")
     print(f"Errors: {len(all_errors)}")
+
+    if null_arch_ids:
+        print(f"WARNING: null arch for: {', '.join(null_arch_ids)}")
 
     if all_errors:
         print("\nErrors:", file=sys.stderr)

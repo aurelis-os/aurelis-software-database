@@ -150,12 +150,14 @@ class TestParseComponent(unittest.TestCase):
         comp = root.find("component")
         data = parse_component(comp)
 
-        # Boilerplate should be dropped, paragraphs joined
+        # Boilerplate should be dropped, paragraphs joined with single \n
         self.assertIn("Real description paragraph one", data["description"])
         self.assertIn("Real description paragraph two continues here", data["description"])
         self.assertNotIn("This flatpak is community maintained", data["description"])
         # Should have newline between paragraphs
         self.assertIn("\n", data["description"])
+        # Must NOT have double newline
+        self.assertNotIn("\n\n", data["description"])
 
     def test_screenshots_normalization(self):
         import xml.etree.ElementTree as ET

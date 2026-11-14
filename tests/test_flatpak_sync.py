@@ -10,7 +10,7 @@ from flatpak_sync import FLATHUB_FIELDS, is_empty_value, normalize_flathub_data
 
 class TestNormalizeFlathubData(unittest.TestCase):
     def test_normalizes_description(self):
-        data = {"description": "Line one\n      continues\n\nPara two"}
+        data = {"description": "Line one\n      continues\nPara two"}
         result = normalize_flathub_data(data)
         self.assertEqual(result["description"], "Line one continues\nPara two")
 

@@ -29,8 +29,7 @@ def text_of(elem):
     for node in elem.iter():
         if node.tag in ("p", "li") and node.text or node is elem and node.text and node.text.strip():
             parts.append(node.text.strip())
-    # Join paragraphs with double newline for proper paragraph separation
-    return "\n\n".join(parts) if parts else None
+    return "\n".join(parts) if parts else None
 
 
 def localized(parent, tag):

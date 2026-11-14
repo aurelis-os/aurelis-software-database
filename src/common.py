@@ -55,25 +55,24 @@ def normalize_description(text: str | None) -> str | None:
     """
     Normalize description: join soft-wrapped lines, collapse spaces,
     drop Flathub boilerplate paragraphs, keep \n between paragraphs.
+    Idempotent: f(f(x)) == f(x).
     """
     if not text:
         return None
 
-    # Split into paragraphs (double newline)
-    paragraphs = re.split(r"\n\s*\n", text.strip())
+    # Join soft-wrapped lines (newline followed by indentation)
+    text = re.sub(r"\n[ \t]+", " ", text)
+
+    # Split into paragraphs on single newline
+    paragraphs = text.split("\n")
     normalized = []
 
     for para in paragraphs:
-        # Join lines within paragraph, collapse whitespace
-        lines = para.split("\n")
-        joined = " ".join(line.strip() for line in lines if line.strip())
-        # Collapse multiple spaces
-        joined = re.sub(r"\s+", " ", joined)
+        # Collapse whitespace within paragraph
+        joined = " ".join(para.split())
 
-        # Drop Flathub boilerplate paragraphs (but not the whole description)
+        # Drop only "This flatpak is" boilerplate (case-insensitive)
         if joined.lower().startswith("this flatpak is"):
-            continue
-        if joined.lower().startswith("this application is"):
             continue
 
         if joined:
@@ -173,33 +172,85 @@ def normalize_screenshots(screenshots: list[dict] | None) -> list[dict]:
     return normalized
 
 
-def find_sha256(asset: dict, all_assets: list[dict]) -> str | None:
+# Canonical order for generated fields
+GENERATED = [
+    "version",
+    "version_changed_at",
+    "download_url",
+    "asset_name",
+    "size",
+    "sha256",
+    "zsync_url",
+    "arch",
+    "published_at",
+]
+
+_SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
+_COMBINED_RE = re.compile(r"(?i)^(sha256sums?|checksums?)(\.(txt|sha256))?$")
+
+
+def parse_checksum(text: str, filename: str) -> str | None:
+    """
+    Parse a checksum file and return the SHA256 for filename, or None.
+    Accepts: bare 64-hex line, or "<hash>  name" / "<hash> *name" lines.
+    """
+    basename = Path(filename).name
+    for line in text.splitlines():
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        parts = line.split()
+        if len(parts) == 1:
+            # Bare hash line
+            candidate = parts[0].lower()
+            if _SHA256_RE.match(candidate):
+                return candidate
+        elif len(parts) >= 2:
+            candidate = parts[0].lower()
+            name = parts[1].lstrip("*")
+            if Path(name).name == basename and _SHA256_RE.match(candidate):
+                return candidate
+    return None
+
+
+def find_sha256(
+    asset: dict,
+    all_assets: list[dict],
+    fetch=None,
+) -> str | None:
     """
     Find SHA256 for an asset.
-    Priority: asset.digest, sibling .sha256 file, combined SHA256SUMS/checksums.txt.
+    Priority: asset.digest -> sibling .sha256/.sha256sum/.sha256.txt ->
+    combined checksum file matching SHA256SUMS/checksums pattern.
+    fetch: callable(url) -> str | None (injected; None means no download).
+    Returns lowercase 64-hex or None.
     """
     # 1. GitHub's digest field
     digest = asset.get("digest")
     if digest and digest.startswith("sha256:"):
-        return digest[7:].lower()
+        hex_val = digest[7:].lower()
+        if _SHA256_RE.match(hex_val):
+            return hex_val
+
+    if fetch is None:
+        return None
 
     asset_name = asset["name"]
 
     # 2. Sibling checksum files
     for sibling in all_assets:
         sname = sibling["name"]
-        if sname == f"{asset_name}.sha256" or sname == f"{asset_name}.sha256sum" or sname == f"{asset_name}.sha256.txt":
-            # The sibling asset contains the checksum - we need to download and parse it
-            # This is handled by the caller (get_latest_appimages.py) which downloads the file
-            # For now, we return a special marker to indicate a sibling checksum file exists
-            return "SIBLING_CHECKSUM"
+        if sname in (f"{asset_name}.sha256", f"{asset_name}.sha256sum", f"{asset_name}.sha256.txt"):
+            text = fetch(sibling["browser_download_url"])
+            if text is not None:
+                return parse_checksum(text, asset_name)
 
     # 3. Combined checksum files
     for sibling in all_assets:
-        sname = sibling["name"]
-        if sname in ("SHA256SUMS", "SHA256SUMS.txt", "checksums.txt", "checksums.sha256"):
-            # Combined checksum file exists - caller will download and parse
-            return "COMBINED_CHECKSUM"
+        if _COMBINED_RE.match(sibling["name"]):
+            text = fetch(sibling["browser_download_url"])
+            if text is not None:
+                return parse_checksum(text, asset_name)
 
     return None
 

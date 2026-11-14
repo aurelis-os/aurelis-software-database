@@ -27,6 +27,7 @@ from pathlib import Path
 # Import shared helpers
 sys.path.insert(0, str(Path(__file__).parent))
 from common import (
+    GENERATED,
     check_stale_broken,
     compute_version_changed_at,
     detect_arch,
@@ -117,34 +118,24 @@ def fetch_latest_release(repo: str, token: str | None) -> dict | None:
     return make_request(url, token)
 
 
-def download_and_parse_checksum(url: str, token: str | None, asset_name: str) -> str | None:
+def download_text(url: str) -> str | None:
     """
-    Download a checksum file and extract SHA256 for the given asset.
-    Supports both sibling checksum files and combined checksum files (SHA256SUMS format).
+    Download a URL and return its text content, or None on error.
+    Only sends Authorization for api.github.com URLs.
+    Capped at 1 MB.
     """
-    headers = {"Accept": "application/vnd.github+json"}
-    if token:
-        headers["Authorization"] = f"Bearer {token}"
-
+    token = get_github_token()
+    headers = {"User-Agent": "aurelis-software-database"}
+    if url.startswith("https://api.github.com"):
+        headers["Accept"] = "application/vnd.github+json"
+        if token:
+            headers["Authorization"] = f"Bearer {token}"
     try:
         req = urllib.request.Request(url, headers=headers)
         with urllib.request.urlopen(req, timeout=30) as response:
-            content = response.read().decode("utf-8")
+            return response.read(1024 * 1024).decode("utf-8")
     except (urllib.error.URLError, TimeoutError, OSError, UnicodeDecodeError):
         return None
-
-    # Parse checksum file - format: "sha256_hash  filename" or "sha256_hash *filename"
-    for line in content.splitlines():
-        line = line.strip()
-        if not line or line.startswith("#"):
-            continue
-        parts = line.split()
-        if len(parts) >= 2:
-            sha = parts[0].lower()
-            filename = parts[1].lstrip("*")
-            if filename == asset_name and len(sha) == 64 and all(c in "0123456789abcdef" for c in sha):
-                return sha
-    return None
 
 
 def find_appimage_asset(release: dict, asset_suffix: str) -> dict | None:
@@ -159,28 +150,29 @@ def insert_generated_fields(data: dict, updates: dict) -> dict:
     """
     Insert generated fields after title_version_regex (or version_regex),
     preserving key order: curated -> generated -> flathub.
-    Prefers title_version_regex if present.
+    Strips all old GENERATED keys from data; inserts new block in canonical order.
     """
     result = {}
     inserted = False
-    # Keys that are generated and should not be copied from original data
-    generated_keys = set(updates.keys())
+    generated_set = set(GENERATED)
 
     for key, value in data.items():
-        # Skip old generated fields - we'll use the new values from updates
-        if inserted and key in generated_keys:
+        # Skip all old generated keys; new values come from updates
+        if key in generated_set:
             continue
         result[key] = value
-        # Prefer title_version_regex over version_regex
-        if key == "title_version_regex" and not inserted or key == "version_regex" and not inserted and "title_version_regex" not in data:
-            for uk, uv in updates.items():
-                result[uk] = uv
-            inserted = True
+        if not inserted and key in ("title_version_regex", "version_regex") and (
+            key == "title_version_regex" or "title_version_regex" not in data
+        ):
+                for gk in GENERATED:
+                    if gk in updates:
+                        result[gk] = updates[gk]
+                inserted = True
 
-    # If neither key was found, append at the end
     if not inserted:
-        for uk, uv in updates.items():
-            result[uk] = uv
+        for gk in GENERATED:
+            if gk in updates:
+                result[gk] = updates[gk]
 
     return result
 
@@ -223,47 +215,34 @@ def process_app(
 
     # Detect arch
     arch = detect_arch(asset["name"])
+    if arch is None:
+        # Preserve manually set arch if detection fails
+        arch = app_data.get("arch")
 
-    # Find sha256
-    sha256 = find_sha256(asset, release.get("assets", []))
-
-    # If find_sha256 indicates a checksum file exists, download and parse it
-    if sha256 == "SIBLING_CHECKSUM":
-        # Find the sibling checksum file
-        asset_name = asset["name"]
-        for sibling in release.get("assets", []):
-            sname = sibling["name"]
-            if sname == f"{asset_name}.sha256" or sname == f"{asset_name}.sha256sum" or sname == f"{asset_name}.sha256.txt":
-                sha256 = download_and_parse_checksum(sibling["browser_download_url"], token, asset_name)
-                break
-    elif sha256 == "COMBINED_CHECKSUM":
-        # Find the combined checksum file
-        for sibling in release.get("assets", []):
-            sname = sibling["name"]
-            if sname in ("SHA256SUMS", "SHA256SUMS.txt", "checksums.txt", "checksums.sha256"):
-                sha256 = download_and_parse_checksum(sibling["browser_download_url"], token, asset["name"])
-                break
+    # Find sha256 (no network marker strings; fetch injected)
+    sha256 = find_sha256(asset, release.get("assets", []), fetch=download_text)
 
     # Find zsync_url
     zsync_url = find_zsync_url(asset["name"], release.get("assets", []))
 
-    # Build updates
-    updates = {
+    # Build updates in canonical GENERATED order
+    # arch is always written (even None); size/sha256/zsync_url omitted when None
+    updates: dict = {
         "version": version,
-        "download_url": asset["browser_download_url"],
-        "asset_name": asset["name"],
-        "size": asset.get("size"),
-        "sha256": sha256,
-        "zsync_url": zsync_url,
-        "arch": arch,
-        "published_at": release["published_at"],
         "version_changed_at": compute_version_changed_at(
             app_data, version, sha256, release["published_at"]
         ),
+        "download_url": asset["browser_download_url"],
+        "asset_name": asset["name"],
     }
-
-    # Remove None values (except we keep them to show they were checked)
-    updates = {k: v for k, v in updates.items() if v is not None}
+    if asset.get("size") is not None:
+        updates["size"] = asset["size"]
+    if sha256 is not None:
+        updates["sha256"] = sha256
+    if zsync_url is not None:
+        updates["zsync_url"] = zsync_url
+    updates["arch"] = arch  # always present, may be None
+    updates["published_at"] = release["published_at"]
 
     # Insert generated fields in correct position
     updated = insert_generated_fields(app_data, updates)

@@ -11,6 +11,7 @@ from common import (
     create_reproducible_tar_gz,
     detect_arch,
     extract_version,
+    find_sha256,
     find_zsync_url,
     format_generated_at,
     load_json,
@@ -18,6 +19,7 @@ from common import (
     normalize_description,
     normalize_keywords,
     normalize_screenshots,
+    parse_checksum,
     write_json,
 )
 
@@ -75,30 +77,29 @@ class TestDetectArch(unittest.TestCase):
 
 
 class TestNormalizeDescription(unittest.TestCase):
+    def test_unchanged_single_newline_paragraphs(self):
+        text = "Para one.\nPara two."
+        self.assertEqual(normalize_description(text), "Para one.\nPara two.")
+
+    def test_this_application_is_preserved(self):
+        text = "This application is a fast editor.\nIt has plugins."
+        self.assertEqual(normalize_description(text), "This application is a fast editor.\nIt has plugins.")
+
     def test_joins_soft_wrapped_lines(self):
-        text = "Line one\n      continues here\n\nParagraph two"
-        result = normalize_description(text)
-        self.assertEqual(result, "Line one continues here\nParagraph two")
+        text = "line one\n      line two"
+        self.assertEqual(normalize_description(text), "line one line two")
+
+    def test_drops_flatpak_boilerplate(self):
+        text = "This flatpak is community maintained.\nReal description here."
+        self.assertEqual(normalize_description(text), "Real description here.")
+
+    def test_idempotent(self):
+        text = "Para one.\nPara two.\nThis flatpak is noise."
+        self.assertEqual(normalize_description(normalize_description(text)), normalize_description(text))
 
     def test_collapses_spaces(self):
         text = "Multiple    spaces   here"
-        result = normalize_description(text)
-        self.assertEqual(result, "Multiple spaces here")
-
-    def test_drops_flatpak_boilerplate(self):
-        text = "This flatpak is community maintained.\n\nReal description here."
-        result = normalize_description(text)
-        self.assertEqual(result, "Real description here.")
-
-    def test_drops_this_application_boilerplate(self):
-        text = "This application is a flatpak.\n\nReal description."
-        result = normalize_description(text)
-        self.assertEqual(result, "Real description.")
-
-    def test_preserves_paragraphs(self):
-        text = "Para one.\n\nPara two.\n\nPara three."
-        result = normalize_description(text)
-        self.assertEqual(result, "Para one.\nPara two.\nPara three.")
+        self.assertEqual(normalize_description(text), "Multiple spaces here")
 
     def test_handles_none(self):
         self.assertIsNone(normalize_description(None))
@@ -244,6 +245,72 @@ class TestComputeVersionChangedAt(unittest.TestCase):
         existing = {"version": "latest", "published_at": "2026-01-01T00:00:00Z", "version_changed_at": "2026-01-01T00:00:00Z"}
         result = compute_version_changed_at(existing, "latest", "abc", "2026-01-01T00:00:00Z")
         self.assertEqual(result, "2026-01-01T00:00:00Z")
+
+
+class TestParseChecksum(unittest.TestCase):
+    def test_bare_hash(self):
+        h = "a" * 64
+        self.assertEqual(parse_checksum(h, "app.AppImage"), h)
+
+    def test_hash_two_space_name(self):
+        h = "b" * 64
+        self.assertEqual(parse_checksum(f"{h}  app.AppImage", "app.AppImage"), h)
+
+    def test_hash_star_name(self):
+        h = "c" * 64
+        self.assertEqual(parse_checksum(f"{h} *app.AppImage", "app.AppImage"), h)
+
+    def test_combined_picks_right_line(self):
+        h1 = "1" * 64
+        h2 = "2" * 64
+        text = f"{h1}  other.AppImage\n{h2}  app.AppImage\n"
+        self.assertEqual(parse_checksum(text, "app.AppImage"), h2)
+
+    def test_no_match_returns_none(self):
+        self.assertIsNone(parse_checksum("deadbeef  other.AppImage", "app.AppImage"))
+
+    def test_garbage_returns_none(self):
+        self.assertIsNone(parse_checksum("not a checksum at all", "app.AppImage"))
+
+
+class TestFindSha256(unittest.TestCase):
+    def test_digest_wins_no_fetch(self):
+        h = "d" * 64
+        asset = {"name": "app.AppImage", "digest": f"sha256:{h}"}
+        called = []
+        def fetch(url):
+            called.append(url)
+            return None
+        self.assertEqual(find_sha256(asset, [asset], fetch=fetch), h)
+        self.assertEqual(called, [])  # fetch NOT called
+
+    def test_sibling_bare_hash(self):
+        h = "e" * 64
+        asset = {"name": "app.AppImage", "browser_download_url": "https://example.com/app.AppImage"}
+        sibling = {"name": "app.AppImage.sha256", "browser_download_url": "https://example.com/app.AppImage.sha256"}
+        self.assertEqual(find_sha256(asset, [asset, sibling], fetch=lambda url: h), h)
+
+    def test_combined_file_picks_right_line(self):
+        h = "f" * 64
+        asset = {"name": "app.AppImage", "browser_download_url": "https://example.com/app.AppImage"}
+        combined = {"name": "SHA256SUMS", "browser_download_url": "https://example.com/SHA256SUMS"}
+        text = f"{'0'*64}  other.AppImage\n{h}  app.AppImage\n"
+        self.assertEqual(find_sha256(asset, [asset, combined], fetch=lambda url: text), h)
+
+    def test_combined_without_our_asset_returns_none(self):
+        asset = {"name": "app.AppImage", "browser_download_url": "https://example.com/app.AppImage"}
+        combined = {"name": "SHA256SUMS", "browser_download_url": "https://example.com/SHA256SUMS"}
+        text = f"{'0'*64}  other.AppImage\n"
+        self.assertIsNone(find_sha256(asset, [asset, combined], fetch=lambda url: text))
+
+    def test_fetch_none_returns_none(self):
+        asset = {"name": "app.AppImage", "browser_download_url": "https://example.com/app.AppImage"}
+        sibling = {"name": "app.AppImage.sha256", "browser_download_url": "https://example.com/app.AppImage.sha256"}
+        self.assertIsNone(find_sha256(asset, [asset, sibling], fetch=None))
+
+    def test_no_fetch_injected_returns_none(self):
+        asset = {"name": "app.AppImage"}
+        self.assertIsNone(find_sha256(asset, [asset]))
 
 
 class TestFindZsyncUrl(unittest.TestCase):
